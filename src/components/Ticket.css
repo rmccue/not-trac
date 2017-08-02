@@ -1,0 +1,33 @@
+.Ticket-main {
+	display: flex;
+}
+.Ticket-timeline {
+	flex-grow: 1;
+	width: 80%;
+}
+
+.Ticket-header {
+	margin-bottom: 1rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #e5f5fa;
+}
+
+.Ticket-main > .TicketStatus {
+	width: 18%;
+	margin-left: 2%;
+	flex-shrink: 0;
+}
+
+.Ticket-state {
+	border-radius: 2px;
+	background: #82878c;
+	color: #fff;
+	padding: 0.15em 0.4em;
+	margin-right: 0.5em;
+}
+.Ticket-state.state-open {
+	background: #46b450;
+}
+.Ticket-state.state-closed {
+	background: #dc3232;
+}

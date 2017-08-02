@@ -1,0 +1,39 @@
+.TicketStatus {
+	color: #72777C;
+	font-size: 0.9em;
+}
+
+.TicketStatus > div {
+	padding-bottom: 1rem;
+	margin-bottom: 1em;
+	border-bottom: 1px solid #e5f5fa;
+}
+
+.TicketStatus > div > h4 {
+	margin-top: 0;
+	margin-bottom: 0.5em;
+}
+
+.TicketStatus .Tag {
+	font-size: 1em;
+}
+
+.TicketStatus-keywords .Tag {
+	display: block;
+	margin-bottom: 0.5em;
+}
+.TicketStatus-components-list > * {
+	display: flex;
+	margin-bottom: 0.5em;
+}
+.TicketStatus-components-list .dashicons {
+	width: 1.7rem;
+}
+.TicketStatus-components-list a {
+	display: flex;
+	flex-grow: 1;
+}
+.TicketStatus-components-list .Tag {
+	display: inline-block;
+	flex-grow: 1;
+}

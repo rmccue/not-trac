@@ -1,0 +1,67 @@
+.TicketListItem {
+	display: flex;
+	border: 1px solid #bfe7f3;
+	border-bottom-style: none;
+	padding: 0.7em;
+}
+
+.TicketListItem:hover {
+	background: #e5f5fa;
+}
+
+.TicketListItem:last-of-type {
+	border-bottom-style: solid;
+}
+
+.TicketListItem > .col-type {
+	width: 2rem;
+	color: #f9a87e;
+}
+
+.TicketListItem > .col-type.type-bug {
+	color: #ea8484;
+}
+.TicketListItem > .col-type.type-enhancement {
+	color: #90d296;
+}
+
+.TicketListItem > .col-main {
+	flex-grow: 1;
+}
+
+.TicketListItem > .col-main small {
+	font-size: 0.85em;
+	color: #72777C;
+}
+
+.TicketListItem-detail-title-block {
+	display: flex;
+	line-height: 1.6;
+}
+
+.TicketListItem-detail-title {
+	font-weight: bold;
+	margin: 0;
+}
+.TicketListItem-detail-title:hover {
+	color: #00a0d2;
+}
+.TicketListItem-detail-title a {
+	color: inherit;
+}
+
+.TicketListItem-detail-tags {
+	margin-left: 0.5em;
+	flex-shrink: 0;
+}
+
+.TicketListItem > .col-extra {
+	display: flex;
+	font-size: 0.8em;
+}
+
+.TicketListItem > .col-extra > * {
+	display: flex;
+	width: 20px;
+	margin-left: 0.5em;
+}

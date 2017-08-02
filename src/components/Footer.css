@@ -1,0 +1,24 @@
+.Footer {
+	background-color: #0073aa;
+	color: #bfe7f3;
+	padding: 20px;
+	margin-top: 3rem;
+}
+
+.Footer h4 {
+	color: #fff;
+}
+
+.Footer a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.Footer > .wrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.Footer > .wrapper > div {
+	width: 30%;
+}

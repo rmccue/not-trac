@@ -1,0 +1,17 @@
+.Login {
+	max-width: 30rem;
+}
+.Login form {
+	border: 1px solid #0073aa;
+	padding: 1rem;
+	display: block;
+	width: 20rem;
+}
+.Login form > div {
+	display: flex;
+	margin-bottom: 0.5em;
+}
+.Login form label {
+	width: 40%;
+	font-weight: bold;
+}

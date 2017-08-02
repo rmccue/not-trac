@@ -1,0 +1,42 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	line-height: 1.4;
+}
+
+.wrapper {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+p {
+	margin: 0 0 1em;
+}
+p:last-child {
+	margin-bottom: 0;
+}
+
+a {
+	color: #00a0d2;
+	text-decoration: none;
+}
+
+pre {
+	background: #fff8e5;
+	padding: 1rem;
+	border-radius: 3px;
+	overflow: scroll;
+}
+
+blockquote {
+	border-left: 2px solid #cbcdce;
+	margin-left: 0;
+	padding-left: 1rem;
+	color: #82878c;
+}

@@ -1,0 +1,38 @@
+.TimelineEvent {
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	position: relative;
+}
+
+.TimelineEvent:last-of-type {
+	padding-bottom: 0;
+}
+
+.TimelineEvent.compact {
+	padding-left: calc( 48px + 1rem + 2rem );
+	color: #32373c;
+}
+.TimelineEvent:before {
+	content: " ";
+	display: block;
+	border-left: 3px solid #bfe7f3;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: calc( 48px + 1rem + 0.5rem );
+	z-index: -1;
+	width: 40px;
+}
+
+.TimelineEvent-icon {
+	position: absolute;
+	left: calc( 48px + 0.5rem );
+	margin-top: -0.35rem;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 1rem;
+	background: #bfe7f3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

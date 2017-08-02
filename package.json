@@ -1,0 +1,28 @@
+{
+  "name": "less-terrible-trac",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "1.0.10"
+  },
+  "dependencies": {
+    "moment": "^2.18.1",
+    "prismjs": "^1.6.0",
+    "prop-types": "^15.5.10",
+    "query-string": "^5.0.0",
+    "react": "^15.6.1",
+    "react-document-title": "^2.0.3",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
+    "simple-text-parser": "^1.0.0",
+    "string-hash": "^1.1.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

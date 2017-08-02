@@ -1,0 +1,24 @@
+.Loading {
+	display: flex;
+	width: 100%;
+	height: 6rem;
+
+	justify-content: center;
+	align-items: center;
+}
+.Loading-text {
+	font-size: 2rem;
+}
+
+.Loading .dashicons {
+	animation: Loading-spin infinite 2s linear;
+	font-size: 40px;
+	height: 40px;
+	width: 40px;
+	margin-right: 0.5rem;
+}
+
+@keyframes Loading-spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
