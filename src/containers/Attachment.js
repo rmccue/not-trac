@@ -27,13 +27,10 @@ class Attachment extends React.PureComponent {
 		const { id, ticket } = this.props;
 		const { data } = this.state;
 
-		if ( ! data ) {
-			return <Loading />;
-		}
-
 		return <AttachmentComponent
 			data={ data }
 			id={ id }
+			isLoading={ ! data }
 			ticket={ ticket }
 		/>;
 	}

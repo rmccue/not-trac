@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import CodeBlock from '../components/CodeBlock';
+import Loading from './Loading';
 
 const guessLanguage = filename => {
 	const parts = filename.split( '.' );
@@ -22,7 +23,7 @@ const guessLanguage = filename => {
 
 export default class Attachment extends React.Component {
 	render() {
-		const { data, id, ticket } = this.props;
+		const { data, id, isLoading, ticket } = this.props;
 
 		const lang = guessLanguage( id );
 
@@ -37,7 +38,11 @@ export default class Attachment extends React.Component {
 				</h1>
 			</div>
 
-			<CodeBlock lang={ lang }>{ data }</CodeBlock>
+			{ isLoading ?
+				<Loading />
+			:
+				<CodeBlock lang={ lang }>{ data }</CodeBlock>
+			}
 		</div>;
 	}
 }
