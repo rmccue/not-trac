@@ -27,7 +27,7 @@ export default class TicketStatus extends React.PureComponent {
 				<p className="TicketStatus-components-list">
 					<span className="TicketStatus-component">
 						<span className="dashicons dashicons-awards"></span>
-						<Link to={ `/component/${ encodeURIComponent( attributes.component ) } `}>
+						<Link to={ `/component/${ encodeURIComponent( attributes.component ) }`}>
 							<Tag name={ attributes.component } />
 						</Link>
 					</span>
