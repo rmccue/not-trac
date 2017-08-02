@@ -37,6 +37,8 @@ export default class TicketChanges extends React.PureComponent {
 	getChange( change ) {
 		const { ticket } = this.props;
 		const { timestamp, author, field, oldval, newval, permanent } = change;
+
+		const key = timestamp + field;
 		switch ( field ) {
 			case 'comment':
 				if ( ! permanent || newval.length <= 0 ) {
@@ -47,7 +49,7 @@ export default class TicketChanges extends React.PureComponent {
 					return <SlackMention text={ newval } />;
 				}
 
-				return <TimelineEvent key={ timestamp } id={ `comment:${ oldval }` }>
+				return <TimelineEvent key={ key } id={ `comment:${ oldval }` }>
 					<Comment
 						author={ author }
 						edits={ change.edits || [] }
@@ -60,7 +62,7 @@ export default class TicketChanges extends React.PureComponent {
 
 			case 'attachment': {
 				const icon = <span className="dashicons dashicons-upload"></span>
-				return <TimelineEvent key={ timestamp } compact icon={ icon }>
+				return <TimelineEvent key={ key } compact icon={ icon }>
 					@{ author }
 					{ ' uploaded ' }
 					<Link to={ `/attachment/ticket/${ ticket }/${ newval }` }>
@@ -95,7 +97,7 @@ export default class TicketChanges extends React.PureComponent {
 					removeText = <span>removed { tagger( removed ) }</span>;
 				}
 
-				return <TimelineEvent key={ timestamp } compact icon={ icon }>
+				return <TimelineEvent key={ key } compact icon={ icon }>
 					@{ author }
 					{ ' ' }
 					{ ( addText && removeText ) ?
@@ -121,7 +123,7 @@ export default class TicketChanges extends React.PureComponent {
 				}
 
 				const icon = <span className="dashicons dashicons-tag"></span>;
-				return <TimelineEvent key={ timestamp } compact icon={ icon }>
+				return <TimelineEvent key={ key } compact icon={ icon }>
 					<strong>@{ author }</strong> { action } <Time timestamp={ timestamp } />
 				</TimelineEvent>;
 			}
