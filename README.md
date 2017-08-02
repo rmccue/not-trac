@@ -8,6 +8,8 @@ This connects to WordPress.org's Trac instance via XML-RPC, and hence requires y
 
 This especially applies if you're a committer. Your WordPress.org password controls your commit access to 28% of the web, be extremely cautious with it.
 
+**THERE IS ZERO SUPPORT PROVIDED FOR THIS INTERFACE**. This is something I made for my own use. If it's useful to you, great; if not, also great.
+
 ## Running Locally
 
 ```sh
