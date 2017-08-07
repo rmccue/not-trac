@@ -22,9 +22,9 @@
 	padding: 0.4rem 0.7rem 0.7rem;
 	margin: -0.4rem 0.5rem -0.7rem 0;
 
-	padding-bottom: calc( 0.7rem + 1px );
+	padding-bottom: calc( 0.7rem + 2px );
 	margin-top: calc( -0.4rem - 1px );
-	margin-bottom: calc( -0.7rem - 1px );
+	margin-bottom: calc( -0.7rem - 2px );
 
 	border: 1px solid transparent;
 	border-bottom-style: none;
