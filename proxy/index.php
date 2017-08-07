@@ -53,6 +53,26 @@ $headers = array(
 );
 
 $encoder = new \Comodojo\Xmlrpc\XmlrpcEncoder();
+
+$valid_types = [ 'base64', 'datetime', 'cdata' ];
+if ( ! empty( $data->types ) ) {
+	foreach ( $data->types as $key => $type ) {
+		if ( ! is_int( $key ) || $key < 0 || $key >= count( $data->parameters ) ) {
+			$error([
+				'message' => sprintf( 'Invalid parameter key %s', $key ),
+			], 400 );
+		}
+		if ( ! in_array( $type, $valid_types ) ) {
+			$error([
+				'message' => sprintf( 'Invalid type %s for parameter %s', $type, $key ),
+				'param'   => $key,
+			], 400 );
+			continue;
+		}
+
+		$encoder->setValueType( $data->parameters[ $key ], $type );
+	}
+}
 $body = $encoder->encodeCall( $data->method, $data->parameters );
 $options = array(
 	'auth' => array( $username, $password ),

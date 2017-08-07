@@ -14,7 +14,7 @@ export default class TracAPI {
 		}
 	}
 
-	call( method, parameters = [] ) {
+	call( method, parameters = [], types = null ) {
 		const options = {
 			method: 'POST',
 			headers: {
@@ -25,6 +25,7 @@ export default class TracAPI {
 			body: JSON.stringify( {
 				method,
 				parameters,
+				types,
 			} ),
 		};
 
