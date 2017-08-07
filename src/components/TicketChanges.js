@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Comment from './Comment';
+import CommentContent from './CommentContent';
+import CommentMeta from './CommentMeta';
 import SlackMention from './SlackMention';
 import Tag from './Tag';
 import Time from './Time';
@@ -50,14 +52,16 @@ export default class TicketChanges extends React.PureComponent {
 				}
 
 				return <TimelineEvent key={ key } id={ `comment:${ oldval }` }>
-					<Comment
-						author={ author }
-						edits={ change.edits || [] }
-						number={ oldval }
-						text={ newval }
-						ticket={ ticket }
-						timestamp={ timestamp }
-					/>
+					<Comment author={ author }>
+						<CommentMeta
+							author={ author }
+							edits={ change.edits || [] }
+							number={ oldval }
+							ticket={ ticket }
+							timestamp={ timestamp }
+						/>
+						<CommentContent text={ newval } />
+					</Comment>
 				</TimelineEvent>;
 
 			case 'attachment': {

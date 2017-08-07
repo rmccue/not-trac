@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Comment from './Comment';
+import CommentContent from './CommentContent';
+import CommentMeta from './CommentMeta';
 import Loading from './Loading';
 import TicketChanges from './TicketChanges';
 import TicketStatus from './TicketStatus';
@@ -47,14 +49,16 @@ export default class Ticket extends React.PureComponent {
 			</div>
 			<div className="Ticket-main">
 				<div className="Ticket-timeline">
-					<Comment
-						author={ attributes.reporter }
-						changes={ time_changed !== time_created ? [ {} ] : [] }
-						number={ 0 }
-						text={ attributes.description }
-						ticket={ id }
-						timestamp={ time_created }
-					/>
+					<Comment author={ attributes.reporter }>
+						<CommentMeta
+							author={ attributes.reporter }
+							changes={ time_changed !== time_created ? [ {} ] : [] }
+							number={ 0 }
+							ticket={ id }
+							timestamp={ time_created }
+						/>
+						<CommentContent text={ attributes.description } />
+					</Comment>
 
 					{ changes ?
 						<TicketChanges
