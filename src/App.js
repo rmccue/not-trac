@@ -1,7 +1,7 @@
 import qs from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect, BrowserRouter as Router, Route } from 'react-router-dom';
+import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { set_user_credentials } from './actions';
 import Footer from './components/Footer';
@@ -55,57 +55,59 @@ class App extends React.Component {
 					user={ user }
 				/>
 				<div className="wrapper">
-					<Route
-						exact
-						path="/"
-						component={ Summary }
-					/>
-					<Route
-						exact
-						path="/query"
-						component={ ({ location }) => (
-							<Query
-								params={ qs.parse( location.search ) }
-							/>
-						)}
-					/>
-					<Route
-						exact
-						path="/test"
-						component={ ({ location }) => {
-							console.log( qs.parse( location.search ) );
-							return <span>Testing!</span>
-						}}
-					/>
-					<Route
-						exact
-						path="/component/:name"
-						render={ ({ match }) => (
-							<Redirect
-								to={{
-									pathname: '/query',
-									search: '?' + qs.stringify({
-										component: match.params.name
-									})
-								}}
-							/>
-						)}
-					/>
-					<Route
-						exact
-						path="/ticket/:id"
-						component={ ({ match }) => <Ticket id={ match.params.id } /> }
-					/>
-					<Route
-						exact
-						path="/attachment/ticket/:ticket/:id"
-						component={ ({ match }) => (
-							<Attachment
-								id={ match.params.id }
-								ticket={ match.params.ticket }
-							/>
-						)}
-					/>
+					<Switch>
+						<Route
+							exact
+							path="/"
+							component={ Summary }
+						/>
+						<Route
+							exact
+							path="/query"
+							component={ ({ location }) => (
+								<Query
+									params={ qs.parse( location.search ) }
+								/>
+							)}
+						/>
+						<Route
+							exact
+							path="/test"
+							component={ ({ location }) => {
+								console.log( qs.parse( location.search ) );
+								return <span>Testing!</span>
+							}}
+						/>
+						<Route
+							exact
+							path="/component/:name"
+							render={ ({ match }) => (
+								<Redirect
+									to={{
+										pathname: '/query',
+										search: '?' + qs.stringify({
+											component: match.params.name
+										})
+									}}
+								/>
+							)}
+						/>
+						<Route
+							exact
+							path="/ticket/:id"
+							render={ ({ match }) => <Ticket id={ match.params.id } /> }
+						/>
+						<Route
+							exact
+							path="/attachment/ticket/:ticket/:id"
+							component={ ({ match }) => (
+								<Attachment
+									id={ match.params.id }
+									ticket={ match.params.ticket }
+								/>
+							)}
+						/>
+					</Switch>
 				</div>
 				<Footer />
 			</div>
