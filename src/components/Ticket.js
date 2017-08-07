@@ -34,32 +34,38 @@ export default class Ticket extends React.PureComponent {
 
 		const commentCount = changes ? changes.filter( change => change[2] === 'comment' ).length : 0;
 
+		const summary = attributes ? attributes.summary : 'Loading...';
+
 		return <div className="Ticket">
 			<div className="Ticket-header">
-				<h1>#{ id }: { attributes.summary }</h1>
-				<p>
-					<TicketState state={ attributes.status } />
-					{ attributes.reporter } opened this issue <Time timestamp={ attributes.time } />
-					<span> &bull; { commentCount } comments</span>
-					<span> &bull; </span>
-					<a href={ `https://core.trac.wordpress.org/ticket/${ id }` }>
-						<span className="dashicons dashicons-external"></span>
-						Open on Trac
-					</a>
-				</p>
+				<h1>#{ id }: { summary }</h1>
+				{ attributes ?
+					<p>
+						<TicketState state={ attributes.status } />
+						{ attributes.reporter } opened this issue <Time timestamp={ attributes.time } />
+						<span> &bull; { commentCount } comments</span>
+						<span> &bull; </span>
+						<a href={ `https://core.trac.wordpress.org/ticket/${ id }` }>
+							<span className="dashicons dashicons-external"></span>
+							Open on Trac
+						</a>
+					</p>
+				: null }
 			</div>
 			<div className="Ticket-main">
 				<div className="Ticket-timeline">
-					<Comment author={ attributes.reporter }>
-						<CommentMeta
-							author={ attributes.reporter }
-							changes={ time_changed !== time_created ? [ {} ] : [] }
-							number={ 0 }
-							ticket={ id }
-							timestamp={ time_created }
-						/>
-						<CommentContent text={ attributes.description } />
-					</Comment>
+					{ attributes ?
+						<Comment author={ attributes.reporter }>
+							<CommentMeta
+								author={ attributes.reporter }
+								changes={ time_changed !== time_created ? [ {} ] : [] }
+								number={ 0 }
+								ticket={ id }
+								timestamp={ time_created }
+							/>
+							<CommentContent text={ attributes.description } />
+						</Comment>
+					: <Loading /> }
 
 					{ changes ?
 						<TicketChanges

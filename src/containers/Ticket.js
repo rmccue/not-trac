@@ -85,15 +85,20 @@ class Ticket extends React.PureComponent {
 	}
 
 	render() {
-		const { data } = this.props;
+		const { data, id } = this.props;
 
 		if ( ! data ) {
 			return <Loading />;
 		}
 
-		return <DocumentTitle title={`#${ data.id }: ${ data.attributes.summary }`}>
+		const title = data.attributes ?
+			`#${ id }: ${ data.attributes.summary }` :
+			`#${ id }: Loading...`;
+
+		return <DocumentTitle title={ title }>
 			<TicketComponent
 				{ ...data }
+				id={ id }
 				onComment={ text => this.onComment( text ) }
 			/>
 		</DocumentTitle>;
