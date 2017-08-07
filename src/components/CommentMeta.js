@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import CommentHeader from './CommentHeader';
 import Time from './Time';
 
 import './CommentMeta.css';
@@ -62,7 +63,7 @@ export default class CommentMeta extends React.PureComponent {
 	render() {
 		const { author, edits, number, ticket, timestamp } = this.props;
 
-		return <div className="CommentMeta">
+		return <CommentHeader>
 			<p>
 				<a className="CommentMeta-author" href={ `/user/${ author }` }>
 					@{ author }
@@ -83,7 +84,7 @@ export default class CommentMeta extends React.PureComponent {
 					<span className="dashicons dashicons-external"></span>
 				</a>
 			</p>
-		</div>;
+		</CommentHeader>;
 	}
 }
 CommentMeta.propTypes = {
