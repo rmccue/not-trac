@@ -23,8 +23,8 @@ cd proxy
 composer install
 cd ..
 
-# Run these simultaneously:
-npm run
+# Run the following two simultaneously (maybe in separate terminal sessions):
+npm run start
 cd proxy && php -S 0.0.0.0:3001
 ```
 
