@@ -51,12 +51,15 @@ export default class TicketChanges extends React.PureComponent {
 					return <SlackMention text={ newval } />;
 				}
 
-				return <TimelineEvent key={ key } id={ `comment:${ oldval }` }>
+				// Replies have an ID like `11.12`, so only take the last part.
+				const number = oldval.split( '.' ).pop();
+
+				return <TimelineEvent key={ key } id={ `comment:${ number }` }>
 					<Comment author={ author }>
 						<CommentMeta
 							author={ author }
 							edits={ change.edits || [] }
-							number={ oldval }
+							number={ number }
 							ticket={ ticket }
 							timestamp={ timestamp }
 						/>
