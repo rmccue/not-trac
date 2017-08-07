@@ -7,9 +7,9 @@ import './Comment.css';
 
 export default class Comment extends React.PureComponent {
 	render() {
-		const { author, children } = this.props;
+		const { author, className, children } = this.props;
 
-		return <div className="change change-comment Comment">
+		return <div className={ `Comment ${className || ''}` }>
 			<div className="Comment-col-avatar">
 				<Avatar user={ author } />
 			</div>
