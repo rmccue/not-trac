@@ -3,13 +3,11 @@ import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { set_components, set_ticket_data } from '../actions';
+import { set_components } from '../actions';
 import ErrorComponent from '../components/Error';
 import Loading from '../components/Loading';
 import Tag from '../components/Tag';
-import TicketList from '../components/TicketList';
 import Trac from '../lib/trac';
-import { parseTicketResponse } from '../lib/workflow';
 
 import './Summary.css';
 

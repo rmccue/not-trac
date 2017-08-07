@@ -131,7 +131,7 @@ export default class TicketChanges extends React.PureComponent {
 	}
 
 	render() {
-		const { changes, ticket } = this.props;
+		const { changes } = this.props;
 
 		const elements = parseChanges( changes )
 			.map( change => this.getChange( change ) )

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import AttachmentComponent from '../components/Attachment';
-import Loading from '../components/Loading';
 import Trac from '../lib/trac';
 
 class Attachment extends React.PureComponent {
@@ -17,7 +16,7 @@ class Attachment extends React.PureComponent {
 	}
 
 	componentDidMount() {
-		const { dispatch, id, ticket } = this.props;
+		const { id, ticket } = this.props;
 
 		this.api.call( 'ticket.getAttachment', [ ticket, id ] )
 			.then( data => this.setState({ data }) );
