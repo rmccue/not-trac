@@ -34,10 +34,15 @@ class Ticket extends React.PureComponent {
 
 	maybeLoadTicket( props ) {
 		const { data, id } = props;
-		if ( ! data ) {
-			this.loadTicket( id );
+		if ( this.loader ) {
+			return;
 		}
-		if ( ! data || ! data.changes ) {
+
+		if ( ! data ) {
+			this.loadTicketAndChanges( id );
+		} else if ( ! data.attributes ) {
+			this.loadTicket( id );
+		} else if ( ! data.changes ) {
 			this.loadChanges( id );
 		}
 	}
@@ -55,6 +60,26 @@ class Ticket extends React.PureComponent {
 		const { dispatch } = this.props;
 		this.api.call( 'ticket.changeLog', [ id, 0 ] )
 			.then( changes => dispatch( set_ticket_changes( id, changes ) ) );
+	}
+
+	loadTicketAndChanges( id ) {
+		const { dispatch } = this.props;
+		const calls = [
+			{
+				methodName: 'ticket.get',
+				params: [ id ]
+			},
+			{
+				methodName: 'ticket.changeLog',
+				params: [ id, 0 ]
+			},
+		];
+		this.loader = this.api.call( 'system.multicall', [ calls ] )
+			.then( results => {
+				dispatch( set_ticket_data( id, parseTicketResponse( results[0][0] ) ) );
+				dispatch( set_ticket_changes( id, results[1][0] ) );
+				this.loader = null;
+			});
 	}
 
 	onComment( text ) {
