@@ -57,6 +57,33 @@ class Ticket extends React.PureComponent {
 			.then( changes => dispatch( set_ticket_changes( id, changes ) ) );
 	}
 
+	onComment( text ) {
+		const { data } = this.props;
+
+		const parameters = [
+			// int id
+			data.id,
+
+			// string comment
+			text,
+
+			// struct attributes={}
+			{
+				// Don't alter attributes ("leave as new", e.g.)
+				'action': 'leave',
+				'_ts': data.time_changed,
+			},
+			// boolean notify=False
+			// string author=""
+			// DateTime when=None
+		];
+
+		console.log( 'ticket.update', parameters );
+
+		// this.api.call( 'ticket.update', parameters )
+			// .then( data => dispatch( set_ticket_data( id, parseTicketResponse( data ) ) ) )
+	}
+
 	render() {
 		const { data } = this.props;
 
@@ -65,7 +92,10 @@ class Ticket extends React.PureComponent {
 		}
 
 		return <DocumentTitle title={`#${ data.id }: ${ data.attributes.summary }`}>
-			<TicketComponent { ...data } />
+			<TicketComponent
+				{ ...data }
+				onComment={ text => this.onComment( text ) }
+			/>
 		</DocumentTitle>;
 	}
 }

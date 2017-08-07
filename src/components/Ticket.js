@@ -68,7 +68,9 @@ export default class Ticket extends React.PureComponent {
 						/>
 					: <Loading /> }
 
-					<TicketUpdate />
+					<TicketUpdate
+						onComment={ text => this.props.onComment( text ) }
+					/>
 				</div>
 				<TicketStatus attributes={ attributes } />
 			</div>

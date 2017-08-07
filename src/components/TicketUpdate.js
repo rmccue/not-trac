@@ -10,14 +10,17 @@ import './TicketUpdate.css';
 
 class TicketUpdate extends React.PureComponent {
 	render() {
-		const { user } = this.props;
+		const { user, onComment } = this.props;
 		const upload_icon = <span className="dashicons dashicons-upload"></span>;
 		return <Timeline className="TicketUpdate">
 			<TimelineEvent compact icon={ upload_icon }>
 				<AttachmentUpload />
 			</TimelineEvent>
 			<TimelineEvent>
-				<CommentEditor user={ user } />
+				<CommentEditor
+					user={ user }
+					onSubmit={ text => onComment( text ) }
+				/>
 			</TimelineEvent>
 		</Timeline>;
 	}
