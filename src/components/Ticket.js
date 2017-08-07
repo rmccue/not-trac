@@ -6,6 +6,7 @@ import CommentMeta from './CommentMeta';
 import Loading from './Loading';
 import TicketChanges from './TicketChanges';
 import TicketStatus from './TicketStatus';
+import TicketUpdate from './TicketUpdate';
 import Time from './Time';
 
 import './Ticket.css';
@@ -66,6 +67,8 @@ export default class Ticket extends React.PureComponent {
 							ticket={ id }
 						/>
 					: <Loading /> }
+
+					<TicketUpdate />
 				</div>
 				<TicketStatus attributes={ attributes } />
 			</div>
