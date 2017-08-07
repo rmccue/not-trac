@@ -2,7 +2,7 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 
-import { set_ticket_changes, set_ticket_data } from '../actions';
+import { push_ticket_change, set_ticket_changes, set_ticket_data } from '../actions';
 import Loading from '../components/Loading';
 import TicketComponent from '../components/Ticket';
 import Trac from '../lib/trac';
@@ -58,7 +58,7 @@ class Ticket extends React.PureComponent {
 	}
 
 	onComment( text ) {
-		const { data } = this.props;
+		const { data, dispatch, user } = this.props;
 
 		const parameters = [
 			// int id
@@ -71,17 +71,27 @@ class Ticket extends React.PureComponent {
 			{
 				// Don't alter attributes ("leave as new", e.g.)
 				'action': 'leave',
-				'_ts': data.time_changed,
+
+				// Hack.
+				'_ts': data.attributes._ts,
+				'view_time': `${data.attributes._ts}`
 			},
 			// boolean notify=False
+			true,
 			// string author=""
 			// DateTime when=None
 		];
 
-		console.log( 'ticket.update', parameters );
 
-		// this.api.call( 'ticket.update', parameters )
-			// .then( data => dispatch( set_ticket_data( id, parseTicketResponse( data ) ) ) )
+		// And finally, save.
+		this.api.call( 'ticket.update', parameters )
+			.then( data => {
+				// Update data from response...
+				dispatch( set_ticket_data( data.id, parseTicketResponse( data ) ) );
+
+				// ...and reload the changes.
+				this.loadChanges();
+			});
 	}
 
 	render() {
