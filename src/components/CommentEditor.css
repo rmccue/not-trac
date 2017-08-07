@@ -37,6 +37,31 @@
 	border-color: #bfe7f3;
 }
 
+.CommentEditor-toolbar {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.CommentEditor-toolbar button {
+	background: transparent;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	padding: 0.25rem 0.25rem;
+	margin: -0.25rem 0;
+}
+
+.CommentEditor-toolbar button:hover,
+.CommentEditor-toolbar button:active {
+	color: #00a0d2;
+}
+
+.CommentEditor-toolbar .separator {
+	margin-left: 0.5rem;
+}
+
 .CommentEditor-editor {
 	margin: 7px;
 	padding: 7px;

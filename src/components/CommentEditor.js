@@ -7,6 +7,34 @@ import CommentHeader from './CommentHeader';
 
 import './CommentEditor.css';
 
+const apply = ( selection, start, end ) => {
+	return selection.length ? start + selection + end : start;
+};
+
+const BUTTONS = {
+	bold: {
+		icon: 'editor-bold',
+		title: 'Add bold text',
+		apply: text => apply( text, "'''", "'''" ),
+	},
+	italic: {
+		icon: 'editor-italic',
+		title: 'Add italic text',
+		apply: text => apply( text, "''", "''" ),
+	},
+	sep1: { separator: true },
+	quote: {
+		icon: 'editor-quote',
+		title: 'Add blockquote',
+		apply: text => apply( text, '>', '\n' ),
+	},
+	code: {
+		icon: 'editor-code',
+		title: 'Add code',
+		apply: text => text.indexOf( '\n' ) > 0 ? apply( text, '```\n', '\n```\n' ) : apply( text, '`', '`' ),
+	},
+};
+
 export default class CommentEditor extends React.PureComponent {
 	constructor( props ) {
 		super( props );
@@ -36,7 +64,22 @@ export default class CommentEditor extends React.PureComponent {
 	onSubmit( e ) {
 		e.preventDefault();
 
-		console.log( this.state.content );
+		this.props.onSubmit( this.state.content );
+	}
+
+	onButton( e, apply ) {
+		e.preventDefault();
+
+		const { selectionStart, selectionEnd } = this.textarea;
+		const content = this.state.content;
+
+		const nextParts = [
+			content.substring( 0, selectionStart ),
+			apply( content.substring( selectionStart, selectionEnd ) ),
+			content.substring( selectionEnd )
+		];
+
+		this.setState({ content: nextParts.join( '' ) });
 	}
 
 	render() {
@@ -73,9 +116,22 @@ export default class CommentEditor extends React.PureComponent {
 						</li>
 					</ul>
 					{ mode === 'edit' ?
-						<p>
-							{ /* Formatters */ }
-						</p>
+						<ul className="CommentEditor-toolbar">
+							{ Object.keys( BUTTONS ).map( type => {
+								if ( BUTTONS[ type ].separator ) {
+									return <span key={ type } className="separator" />;
+								}
+
+								return <button
+									key={ type }
+									onClick={ e => this.onButton( e, BUTTONS[ type ].apply ) }
+									title={ BUTTONS[ type ].title }
+									type="button"
+								>
+									<span className={`dashicons dashicons-${ BUTTONS[ type ].icon }`} />
+								</button>;
+							} ) }
+						</ul>
 					: null }
 				</CommentHeader>
 
