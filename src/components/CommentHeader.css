@@ -1,0 +1,11 @@
+.CommentHeader {
+	display: flex;
+	justify-content: space-between;
+	background: #e5f5fa;
+	color: #82878c;
+	padding: 0.7rem 14px;
+}
+
+.CommentHeader p {
+	margin: 0;
+}

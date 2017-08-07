@@ -3,35 +3,8 @@
 	background: #fff;
 }
 
-.Comment-meta {
-	display: flex;
-	justify-content: space-between;
-	background: #e5f5fa;
-	color: #82878c;
-	padding: 0.7rem 14px;
-}
-
-.Comment-meta p {
-	margin: 0;
-}
-
-.Comment-author {
-	color: #23282d;
-	font-weight: bold;
-}
-
 .Comment-col-avatar {
 	padding-right: 1rem;
-}
-
-.Comment-author-label {
-	display: inline-block;
-	font-size: 0.9em;
-	border: 1px solid #bfe7f3;
-	background: rgba( 255, 255, 255, 0.1 );
-	padding: 0.15em 0.4em;
-	margin-top: -0.15em;
-	margin-right: 0.6em;
 }
 
 .Comment-col-main {
@@ -39,8 +12,4 @@
 	border-radius: 3px;
 	flex-grow: 1;
 	overflow: hidden;
-}
-
-.Comment-content {
-	padding: 14px;
 }

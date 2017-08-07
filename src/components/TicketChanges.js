@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Comment from './Comment';
+import CommentContent from './CommentContent';
+import CommentMeta from './CommentMeta';
 import SlackMention from './SlackMention';
 import Tag from './Tag';
 import Time from './Time';
@@ -49,15 +51,22 @@ export default class TicketChanges extends React.PureComponent {
 					return <SlackMention text={ newval } />;
 				}
 
-				return <TimelineEvent key={ key } id={ `comment:${ oldval }` }>
-					<Comment
-						author={ author }
-						edits={ change.edits || [] }
-						number={ oldval }
-						text={ newval }
-						ticket={ ticket }
-						timestamp={ timestamp }
-					/>
+				// Replies have an ID like `11.12`, so only take the last part.
+				const number = oldval === '??' ? 0 : parseInt( oldval.split( '.' ).pop(), 10 );
+				const pending = oldval === '??';
+
+				return <TimelineEvent key={ key } id={ `comment:${ number }` }>
+					<Comment author={ author }>
+						<CommentMeta
+							author={ author }
+							edits={ change.edits || [] }
+							number={ number }
+							pending={ pending }
+							ticket={ ticket }
+							timestamp={ timestamp }
+						/>
+						<CommentContent text={ newval } />
+					</Comment>
 				</TimelineEvent>;
 
 			case 'attachment': {
@@ -131,7 +140,7 @@ export default class TicketChanges extends React.PureComponent {
 	}
 
 	render() {
-		const { changes, ticket } = this.props;
+		const { changes } = this.props;
 
 		const elements = parseChanges( changes )
 			.map( change => this.getChange( change ) )

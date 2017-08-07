@@ -1,0 +1,89 @@
+.CommentEditor .CommentHeader {
+	border-bottom: 1px solid #bfe7f3;
+}
+
+.CommentEditor-tabs {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+}
+
+.CommentEditor-tabs input {
+	display: none;
+}
+
+.CommentEditor-tabs label {
+	cursor: pointer;
+}
+
+.CommentEditor-tabs label span {
+	display: inline-block;
+	padding: 0.4rem 0.7rem 0.7rem;
+	margin: -0.4rem 0.5rem -0.7rem 0;
+
+	padding-bottom: calc( 0.7rem + 2px );
+	margin-top: calc( -0.4rem - 1px );
+	margin-bottom: calc( -0.7rem - 2px );
+
+	border: 1px solid transparent;
+	border-bottom-style: none;
+	border-radius: 3px 3px 0 0;
+}
+
+.CommentEditor-tabs label input:checked + span {
+	background: #fff;
+	color: #555d66;
+	border-color: #bfe7f3;
+}
+
+.CommentEditor-toolbar {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.CommentEditor-toolbar button {
+	background: transparent;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	padding: 0.25rem 0.25rem;
+	margin: -0.25rem 0;
+}
+
+.CommentEditor-toolbar button:hover,
+.CommentEditor-toolbar button:active {
+	color: #00a0d2;
+}
+
+.CommentEditor-toolbar .separator {
+	margin-left: 0.5rem;
+}
+
+.CommentEditor-editor {
+	margin: 7px;
+	padding: 7px;
+	width: calc( 100% - 7px * 2 );
+	font: inherit;
+	border: 1px solid #bfe7f3;
+
+	min-height: 5rem;
+	max-height: 30rem;
+	resize: vertical;
+}
+.CommentEditor-editor:focus {
+	box-shadow: 0 0 3px #00a0d2;
+}
+
+.CommentEditor-submit {
+	padding: 0 7px 7px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.CommentEditor-submit-buttons .Button {
+	margin-left: 0.5rem;
+}

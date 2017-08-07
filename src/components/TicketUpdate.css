@@ -1,0 +1,20 @@
+.TicketUpdate {
+	position: relative;
+}
+
+.TicketUpdate:before {
+	position: absolute;
+	top: 0.6rem;
+	left: 0;
+	right: 0;
+
+	display: block;
+	content: " ";
+
+	border-top: 3px dashed #bfe7f3;
+}
+
+.TicketUpdate > .TimelineEvent:first-child {
+	/*padding-top: calc( 0.75rem + 1rem );*/
+	padding-top: 1.75rem;
+}

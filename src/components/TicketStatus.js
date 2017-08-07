@@ -9,6 +9,10 @@ export default class TicketStatus extends React.PureComponent {
 	render() {
 		const { attributes } = this.props;
 
+		if ( ! attributes ) {
+			return <aside className="TicketStatus"></aside>;
+		}
+
 		const focuses = attributes.focuses ? attributes.focuses.split( ',' ).map( f => f.trim() ) : [];
 
 		return <aside className="TicketStatus">

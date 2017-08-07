@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { set_query_params, set_query_results, set_ticket_data } from '../actions';
+import { set_query_results, set_ticket_data } from '../actions';
 import Loading from '../components/Loading';
 import QueryComponent from '../components/Query';
 import Trac from '../lib/trac';
@@ -100,7 +100,7 @@ class Query extends React.PureComponent {
 	}
 
 	onNext() {
-		const { dispatch, params } = this.props;
+		const { params } = this.props;
 
 		const currentPage = params.page ? parseInt( params.page, 10 ) : 1;
 
@@ -112,7 +112,7 @@ class Query extends React.PureComponent {
 	}
 
 	onPrevious() {
-		const { dispatch, params } = this.props;
+		const { params } = this.props;
 
 		const currentPage = params.page ? parseInt( params.page, 10 ) : 1;
 
@@ -138,7 +138,7 @@ class Query extends React.PureComponent {
 			return <Loading />;
 		}
 
-		const { dispatch, query, params, tickets } = this.props;
+		const { query, params, tickets } = this.props;
 		const { results } = query;
 
 		const selectedTickets = results.map( id => tickets[ id ] );

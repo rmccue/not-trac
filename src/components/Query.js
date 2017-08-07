@@ -6,7 +6,7 @@ import './Query.css';
 
 export default class Query extends React.PureComponent {
 	render() {
-		const { params, query, tickets, onNext, onPrevious, onUpdateQuery } = this.props;
+		const { params, tickets, onNext, onPrevious, onUpdateQuery } = this.props;
 
 		const page = params.page ? parseInt( params.page, 10 ) : 1;
 
