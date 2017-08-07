@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { set_components, set_ticket_data } from '../actions';
+import ErrorComponent from '../components/Error';
 import Loading from '../components/Loading';
 import Tag from '../components/Tag';
 import TicketList from '../components/TicketList';
@@ -17,6 +18,7 @@ class Summary extends React.PureComponent {
 		super( props );
 
 		this.state = {
+			error: null,
 			loading: true,
 			components: null,
 		};
@@ -37,6 +39,10 @@ class Summary extends React.PureComponent {
 			return;
 		}
 
+		this.loadComponents();
+	}
+
+	loadComponents() {
 		const { dispatch } = this.props;
 		this.api.call( 'ticket.component.getAll' ).then( names => {
 			const components = {};
@@ -49,15 +55,38 @@ class Summary extends React.PureComponent {
 
 			dispatch( set_components( components ) );
 			this.setState({ loading: false });
+		}).catch( e => {
+			this.setState({ loading: false, error: e });
 		});
+	}
+
+	onTryAgain( e ) {
+		e.preventDefault();
+
+		this.setState({ loading: true, error: null });
+		this.loadComponents();
 	}
 
 	render() {
 		const { components } = this.props;
-		const { currentComponent, loading } = this.state;
+		const { error, loading } = this.state;
 
 		if ( loading ) {
 			return <Loading />;
+		}
+
+		if ( error ) {
+			return <ErrorComponent
+				error={ error }
+				title="Unable to load components"
+			>
+				<p>An error occurred while trying to load components from Trac.</p>
+				<p>If you're running this locally, ensure your Trac proxy is running.</p>
+				<button
+					onClick={ e => this.onTryAgain( e ) }
+					type="button"
+				>Try again</button>
+			</ErrorComponent>;
 		}
 
 		return <DocumentTitle title="Summary">
