@@ -1,9 +1,16 @@
 import React from 'react';
 
+import Button from './Button';
+
+import './AttachmentUpload.css';
+
 export default class AttachmentUpload extends React.PureComponent {
 	render() {
 		return <div className="AttachmentUpload">
-			Upload an Attachment, or Attach a Pull Request
+			<p>
+				<Button>Upload an Attachment</Button>
+				<Button>Attach a Pull Request</Button>
+			</p>
 		</div>;
 	}
 }
