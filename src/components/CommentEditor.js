@@ -159,7 +159,6 @@ export default class CommentEditor extends React.PureComponent {
 						>Format with WikiFormatting</a>
 					</small>
 					<span className="CommentEditor-submit-buttons">
-						<Button submit>Comment</Button>
 						<Button primary submit>Comment</Button>
 					</span>
 				</p>
