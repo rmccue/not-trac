@@ -82,6 +82,27 @@ class Ticket extends React.PureComponent {
 			// DateTime when=None
 		];
 
+		// Optimistically render.
+		const change = [
+			// timestamp
+			parseInt( Date.now() / 1000, 10 ),
+
+			// author
+			user.username,
+
+			// field
+			'comment',
+
+			// oldval (number)
+			'??',
+
+			// newval (text)
+			text,
+
+			// permanent
+			true,
+		];
+		dispatch( push_ticket_change( data.id, change ) );
 
 		// And finally, save.
 		this.api.call( 'ticket.update', parameters )

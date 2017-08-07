@@ -52,7 +52,8 @@ export default class TicketChanges extends React.PureComponent {
 				}
 
 				// Replies have an ID like `11.12`, so only take the last part.
-				const number = parseInt( oldval.split( '.' ).pop(), 10 );
+				const number = oldval === '??' ? 0 : parseInt( oldval.split( '.' ).pop(), 10 );
+				const pending = oldval === '??';
 
 				return <TimelineEvent key={ key } id={ `comment:${ number }` }>
 					<Comment author={ author }>
@@ -60,6 +61,7 @@ export default class TicketChanges extends React.PureComponent {
 							author={ author }
 							edits={ change.edits || [] }
 							number={ number }
+							pending={ pending }
 							ticket={ ticket }
 							timestamp={ timestamp }
 						/>

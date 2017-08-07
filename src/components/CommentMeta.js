@@ -61,7 +61,7 @@ const CONTRIBUTOR_LABELS = {
 
 export default class CommentMeta extends React.PureComponent {
 	render() {
-		const { author, edits, number, ticket, timestamp } = this.props;
+		const { author, edits, number, pending, ticket, timestamp } = this.props;
 
 		return <CommentHeader>
 			<p>
@@ -78,11 +78,17 @@ export default class CommentMeta extends React.PureComponent {
 				{ author in CONTRIBUTOR_LABELS ?
 					<span className="CommentMeta-author-label">{ CONTRIBUTOR_LABELS[ author ] }</span>
 				: null }
-				<a href={ `#comment:${ number }` }>#{ number }</a>
-				<span> &bull; </span>
-				<a href={ `https://core.trac.wordpress.org/ticket/${ ticket }#comment:${ number }` }>
-					<span className="dashicons dashicons-external"></span>
-				</a>
+				{ pending ?
+					<span>Saving&hellip;</span>
+				:
+					<span>
+						<a href={ `#comment:${ number }` }>#{ number }</a>
+						<span> &bull; </span>
+						<a href={ `https://core.trac.wordpress.org/ticket/${ ticket }#comment:${ number }` }>
+							<span className="dashicons dashicons-external"></span>
+						</a>
+					</span>
+				}
 			</p>
 		</CommentHeader>;
 	}
@@ -96,4 +102,5 @@ CommentMeta.propTypes = {
 };
 CommentMeta.defaultProps = {
 	edits: [],
+	pending: false,
 };
