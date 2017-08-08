@@ -3,6 +3,7 @@ import React from 'react';
 
 import CommentHeader from './CommentHeader';
 import Time from './Time';
+import UserLink from './UserLink';
 
 import './CommentMeta.css';
 
@@ -63,11 +64,9 @@ export default class CommentMeta extends React.PureComponent {
 	render() {
 		const { author, edits, number, pending, ticket, timestamp } = this.props;
 
-		return <CommentHeader>
+		return <CommentHeader className="CommentMeta">
 			<p>
-				<a className="CommentMeta-author" href={ `/user/${ author }` }>
-					@{ author }
-				</a>
+				<UserLink user={ author } />
 				{ ' commented ' }
 				<Time timestamp={ timestamp } />
 				{ edits.length > 0 ?
