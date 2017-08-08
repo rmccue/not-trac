@@ -37,6 +37,12 @@
 	align-items: center;
 }
 
+.TimelineEvent-icon .dashicons {
+	height: 16px;
+	width: 16px;
+	font-size: 16px;
+}
+
 .TimelineEvent.compact .UserLink {
 	color: inherit;
 	font-weight: bold;
