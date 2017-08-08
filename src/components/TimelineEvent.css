@@ -36,3 +36,12 @@
 	justify-content: center;
 	align-items: center;
 }
+
+.TimelineEvent.compact .UserLink {
+	color: inherit;
+	font-weight: bold;
+}
+
+.TimelineEvent.compact .UserLink:hover {
+	color: #00a0d2;
+}

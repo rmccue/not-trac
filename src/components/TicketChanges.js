@@ -9,6 +9,7 @@ import Tag from './Tag';
 import Time from './Time';
 import Timeline from './Timeline';
 import TimelineEvent from './TimelineEvent';
+import UserLink from './UserLink';
 
 import './TicketChanges.css';
 
@@ -79,7 +80,7 @@ export default class TicketChanges extends React.PureComponent {
 				const icon = <span className="dashicons dashicons-upload"></span>;
 				return <TimelineEvent key={ key } compact icon={ icon }>
 					<p>
-						<strong>@{ author }</strong>
+						<UserLink user={ author } />
 						{ ' uploaded a patch ' }
 						<Time timestamp={ timestamp } />
 					</p>
@@ -121,7 +122,7 @@ export default class TicketChanges extends React.PureComponent {
 				}
 
 				return <TimelineEvent key={ key } compact icon={ icon }>
-					@{ author }
+					<UserLink user={ author } />
 					{ ' ' }
 					{ ( addText && removeText ) ?
 						<span>{ addText } and { removeText }</span>
@@ -147,7 +148,7 @@ export default class TicketChanges extends React.PureComponent {
 
 				const icon = <span className="dashicons dashicons-tag"></span>;
 				return <TimelineEvent key={ key } compact icon={ icon }>
-					<strong>@{ author }</strong> { action } <Time timestamp={ timestamp } />
+					<UserLink user={ author } /> { action } <Time timestamp={ timestamp } />
 				</TimelineEvent>;
 			}
 		}
