@@ -116,6 +116,8 @@ const configure = parser => {
 	// Cross-referencing.
 	parser.addRule( /#(\d+)/g, (text, id) => ({ type: 'ticket', text, id }) );
 	parser.addRule( /@(.+?)\b/g, simple( 'mention' ) );
+	parser.addRule( /\[(\d+)\]/g,                 (text, id) => ({ type: 'commit', text, id }) );
+	parser.addRule( /\b(?:r|changeset:)(\d+)\b/g, (text, id) => ({ type: 'commit', text, id }) );
 
 	// Paragraph separator.
 	parser.addRule( /\n\n/g, () => ({ type: 'para' }) );

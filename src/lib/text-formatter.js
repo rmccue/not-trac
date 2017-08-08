@@ -71,6 +71,11 @@ const formatLeaf = leaf => {
 
 			return <a href={ `/user/${id}` }>@{ id }</a>;
 		}
+		case 'commit': {
+			const { id, text } = leaf;
+
+			return <a href={ `/changeset/${ id }` }>{ text }</a>;
+		}
 
 		// Paragraph separator.
 		case 'para':
