@@ -54,42 +54,49 @@ class Ticket extends React.PureComponent {
 	}
 
 	loadTicket( id ) {
-		const { dispatch } = this.props;
-
-		console.log( 'loading ticket...' );
-
-		this.api.call( 'ticket.get', [ id ] )
-			.then( data => dispatch( set_ticket_data( id, parseTicketResponse( data ) ) ) );
+		this.loadTicketAndChanges( id, 'ticket' );
 	}
 
 	loadChanges( id ) {
-		const { dispatch } = this.props;
-		this.api.call( 'ticket.changeLog', [ id, 0 ] )
-			.then( changes => dispatch( set_ticket_changes( id, changes ) ) );
+		this.loadTicketAndChanges( id, 'changes' );
 	}
 
-	loadTicketAndChanges( id ) {
-		const { dispatch } = this.props;
-		const calls = [
-			{
+	loadTicketAndChanges( id, force = null ) {
+		const { data, dispatch } = this.props;
+		const calls = [];
+		const handlers = [];
+
+		if ( ! data || force === 'ticket' ) {
+			calls.push({
 				methodName: 'ticket.get',
 				params: [ id ]
-			},
-			{
+			});
+			handlers.push( data => dispatch( set_ticket_data( id, parseTicketResponse( data ) ) ) );
+		}
+		if ( ! data || ! data.changes || force === 'changes' ) {
+			calls.push({
 				methodName: 'ticket.changeLog',
 				params: [ id, 0 ]
-			},
-			{
+			});
+			handlers.push( data => dispatch( set_ticket_changes( id, data ) ) );
+		}
+		if ( ! data || ! data.attachments || force === 'attachments' ) {
+			calls.push({
 				methodName: 'ticket.listAttachments',
 				params: [ id ]
-			}
-		];
+			});
+			handlers.push( data => dispatch( set_ticket_attachments( id, parseAttachmentList( data ) ) ) );
+		}
+		if ( calls.length < 1 ) {
+			return;
+		}
+
 		this.loader = this.api.call( 'system.multicall', [ calls ] )
 			.then( results => {
-				dispatch( set_ticket_data( id, parseTicketResponse( results[0][0] ) ) );
-				dispatch( set_ticket_changes( id, results[1][0] ) );
-
-				dispatch( set_ticket_attachments( id, parseAttachmentList( results[2][0] ) ) );
+				results.forEach( ( data, index ) => {
+					const callback = handlers[ index ];
+					callback( data[0] );
+				});
 				this.loader = null;
 			});
 	}
