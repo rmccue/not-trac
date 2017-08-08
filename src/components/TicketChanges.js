@@ -37,7 +37,7 @@ const parseChanges = changes => {
 
 export default class TicketChanges extends React.PureComponent {
 	getChange( change ) {
-		const { ticket } = this.props;
+		const { attachments, ticket } = this.props;
 		const { timestamp, author, field, oldval, newval, permanent } = change;
 
 		const key = timestamp + field;
@@ -65,7 +65,10 @@ export default class TicketChanges extends React.PureComponent {
 							ticket={ ticket }
 							timestamp={ timestamp }
 						/>
-						<CommentContent text={ newval } />
+						<CommentContent
+							text={ newval }
+							ticket={ ticket }
+						/>
 					</Comment>
 				</TimelineEvent>;
 

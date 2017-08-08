@@ -154,7 +154,7 @@ class Ticket extends React.PureComponent {
 		return <DocumentTitle title={ title }>
 			<TicketComponent
 				{ ...data }
-				id={ id }
+				id={ parseInt( id, 10 ) }
 				onComment={ text => this.onComment( text ) }
 			/>
 		</DocumentTitle>;

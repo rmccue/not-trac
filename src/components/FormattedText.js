@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import parse from '../lib/text-parser';
@@ -7,8 +8,17 @@ window.parser = parse;
 
 export default class FormattedText extends React.PureComponent {
 	render() {
-		const { text } = this.props;
+		const { context, text } = this.props;
 
-		return <div>{ format( parse( text ) ) }</div>;
+		return <div>{ format( parse( text ), context ) }</div>;
 	}
 }
+
+FormattedText.propTypes = {
+	context: PropTypes.object,
+	text: PropTypes.string.isRequired,
+};
+
+FormattedText.defaultProps = {
+	context: {},
+};
