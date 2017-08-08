@@ -5,7 +5,7 @@ import CodeBlock from '../components/CodeBlock';
 
 const PARA_MARKER = '__PARA_MARKER__';
 
-const formatLeaf = leaf => {
+const formatLeaf = ( leaf, context ) => {
 	// Special-case.
 	if ( typeof leaf === 'string' ) {
 		return leaf;
@@ -22,16 +22,16 @@ const formatLeaf = leaf => {
 
 		// Lists.
 		case 'unordered-list': {
-			return <ul>{ leaf.children.map( item => <li>{ formatTree( item ) }</li> ) }</ul>;
+			return <ul>{ leaf.children.map( item => <li>{ formatTree( item, context ) }</li> ) }</ul>;
 		}
 		case 'ordered-list': {
 			return <ol start={ leaf.number }>
-				{ leaf.children.map( item => <li>{ formatTree( item ) }</li> ) }
+				{ leaf.children.map( item => <li>{ formatTree( item, context ) }</li> ) }
 			</ol>;
 		}
 
 		case 'citation':
-			return <blockquote>{ formatTree( leaf.children ) }</blockquote>;
+			return <blockquote>{ formatTree( leaf.children, context ) }</blockquote>;
 
 		// Code.
 		case 'preformatted':
@@ -39,13 +39,13 @@ const formatLeaf = leaf => {
 
 		// Basic text formatting.
 		case 'bold':
-			return <strong>{ formatTree( leaf.children, true ) }</strong>;
+			return <strong>{ formatTree( leaf.children, context, true ) }</strong>;
 
 		case 'italic':
-			return <em>{ formatTree( leaf.children, true ) }</em>;
+			return <em>{ formatTree( leaf.children, context, true ) }</em>;
 
 		case 'strike':
-			return <strike>{ formatTree( leaf.children, true ) }</strike>;
+			return <strike>{ formatTree( leaf.children, context, true ) }</strike>;
 
 		case 'code':
 			return <code>{ leaf.text }</code>;
@@ -58,7 +58,7 @@ const formatLeaf = leaf => {
 
 		// Links.
 		case 'link':
-			return <a href={ leaf.url }>{ formatTree( leaf.children || leaf.text, true ) }</a>;
+			return <a href={ leaf.url }>{ formatTree( leaf.children || leaf.text, context, true ) }</a>;
 
 		// Cross-referencing.
 		case 'ticket': {
@@ -90,13 +90,13 @@ const formatLeaf = leaf => {
 	}
 };
 
-const formatTree = ( tree, inline = false ) => {
+const formatTree = ( tree, context = {}, inline = false ) => {
 	// Special-case.
 	if ( typeof tree === 'string' ) {
 		return tree;
 	}
 
-	const leaves = tree.map( formatLeaf );
+	const leaves = tree.map( leaf => formatLeaf( leaf, context ) );
 	if ( inline ) {
 		return leaves;
 	}
