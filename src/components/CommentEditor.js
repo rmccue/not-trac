@@ -83,7 +83,7 @@ export default class CommentEditor extends React.PureComponent {
 	}
 
 	render() {
-		const { user } = this.props;
+		const { ticket, user } = this.props;
 		const { content, height, mode } = this.state;
 
 		return <Comment author={ user.username } className="CommentEditor">
@@ -138,6 +138,7 @@ export default class CommentEditor extends React.PureComponent {
 				{ mode === 'preview' ? (
 					<CommentContent
 						text={ this.state.content || "''Nothing to preview''" }
+						ticket={ ticket }
 					/>
 				) : (
 					<textarea

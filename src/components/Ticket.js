@@ -63,7 +63,10 @@ export default class Ticket extends React.PureComponent {
 								ticket={ id }
 								timestamp={ time_created }
 							/>
-							<CommentContent text={ attributes.description } />
+							<CommentContent
+								text={ attributes.description }
+								ticket={ id }
+							/>
 						</Comment>
 					: <Loading /> }
 
@@ -75,6 +78,7 @@ export default class Ticket extends React.PureComponent {
 					: <Loading /> }
 
 					<TicketUpdate
+						ticket={ id }
 						onComment={ text => this.props.onComment( text ) }
 					/>
 				</div>
