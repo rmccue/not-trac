@@ -37,3 +37,23 @@ export const parseTicketResponse = data => {
 		attributes
 	};
 };
+
+export const parseAttachmentResult = data => {
+	const [ id, description, size, timestamp, author ] = data;
+	return {
+		id,
+		description,
+		size,
+		timestamp,
+		author
+	};
+};
+
+export const parseAttachmentList = data => {
+	return data
+		.map( att => parseAttachmentResult( att ) )
+		.reduce( (result, item) => {
+			result[ item.id ] = item;
+			return result;
+		}, {} );
+}

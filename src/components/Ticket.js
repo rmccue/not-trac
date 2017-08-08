@@ -72,6 +72,7 @@ export default class Ticket extends React.PureComponent {
 
 					{ changes ?
 						<TicketChanges
+							attachments={ this.props.attachments }
 							changes={ changes }
 							ticket={ id }
 						/>
