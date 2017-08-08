@@ -107,22 +107,24 @@ const configure = parser => {
 				id: url,
 			}
 		}
-		let matches;
-		if ( matches = url.match( /^ticket:(\d+)$/i ) ) {
+		let matches = url.match( /^ticket:(\d+)$/i );
+		if ( matches ) {
 			return {
 				type: 'ticket',
 				text: text || matches[1],
 				id: matches[1],
 			};
 		}
-		if ( matches = url.match( /^changeset:(\d+)$/i ) ) {
+		matches = url.match( /^changeset:(\d+)$/i );
+		if ( matches ) {
 			return {
 				type: 'commit',
 				text: text || matches[1],
 				id: matches[1],
 			};
 		}
-		if ( matches = url.match( /^attachment:(([^:]+)(?::ticket:(\d+))?)$/i ) ) {
+		matches = url.match( /^attachment:(([^:]+)(?::ticket:(\d+))?)$/i );
+		if ( matches ) {
 			return {
 				type: 'attachment',
 				text: text || matches[1],
