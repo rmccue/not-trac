@@ -8,3 +8,13 @@
 	display: none;
 }
 
+.AttachmentUpload-description {
+	padding: 7px;
+	width: calc( 100% - 7px * 2 );
+	font: inherit;
+	border: 1px solid #bfe7f3;
+}
+
+.AttachmentUpload-progress > span {
+	margin-left: 1rem;
+}
