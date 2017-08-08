@@ -97,8 +97,12 @@ export default class TicketChanges extends React.PureComponent {
 				</TimelineEvent>;
 			}
 
+			case 'focuses':
 			case 'keywords': {
-				const icon = <span className="dashicons dashicons-tag"></span>;
+				const icon = field === 'focuses' ?
+					<span className="dashicons dashicons-visibility" /> :
+					<span className="dashicons dashicons-tag" />;
+
 				const [ oldTags, newTags ] = [ oldval, newval ].map( set => {
 					return set
 						.trim()
@@ -127,7 +131,7 @@ export default class TicketChanges extends React.PureComponent {
 					{ ( addText && removeText ) ?
 						<span>{ addText } and { removeText }</span>
 					: ( addText || removeText ) }
-					{ ' keywords ' }
+					{ ' ' + field + ' ' }
 					<Time timestamp={ timestamp } />
 				</TimelineEvent>
 			}
