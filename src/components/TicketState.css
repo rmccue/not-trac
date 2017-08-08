@@ -1,0 +1,13 @@
+.TicketState {
+	border-radius: 2px;
+	background: #82878c;
+	color: #fff;
+	padding: 0.15em 0.4em;
+	margin-right: 0.5em;
+}
+.TicketState.state-open {
+	background: #46b450;
+}
+.TicketState.state-closed {
+	background: #dc3232;
+}
