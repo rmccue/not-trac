@@ -1,6 +1,10 @@
-.AttachmentUpload p {
+.AttachmentUpload > .buttons {
 	margin-top: -5px;
 }
 .AttachmentUpload .Button {
 	margin-right: 0.5em;
 }
+.AttachmentUpload-uploader > input[type=file] {
+	display: none;
+}
+
