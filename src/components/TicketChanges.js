@@ -132,6 +132,37 @@ export default class TicketChanges extends React.PureComponent {
 				</TimelineEvent>
 			}
 
+			case 'owner': {
+				const icon = <span className="dashicons dashicons-admin-users"></span>;
+
+				let text;
+				switch ( true ) {
+					case ! oldval && newval === author:
+						text = <span><UserLink user={ author } /> self-assigned this</span>;
+						break;
+
+					case oldval === author && ! newval:
+						text = <span><UserLink user={ author } /> removed their assignment</span>;
+						break;
+
+					case ! newval && oldval:
+						text = <span><UserLink user={ author } /> was unassigned by <UserLink user={ author } /></span>;
+						break;
+
+					case newval && ! oldval:
+						text = <span><UserLink user={ newval } /> was assigned by <UserLink user={ author } /></span>;
+						break;
+
+					default:
+						text = <span><UserLink user={ author } /> assigned <UserLink user={ newval } /> and unassigned <UserLink user={ oldval } /></span>;
+						break;
+				}
+
+				return <TimelineEvent key={ key } compact icon={ icon }>
+					{ text } <Time timestamp={ timestamp } />
+				</TimelineEvent>;
+			}
+
 			default: {
 				if ( field === '_comment0' ) {
 					console.log( change );
