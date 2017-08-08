@@ -14,21 +14,51 @@ const configure = parser => {
 	});
 
 	// Lists.
-	parser.addRule( /^[*-] (.+(\n {2}.+)*)/gm, (_, text) => {
-		const strippedText = text.replace( '\n  ', ' ' );
+	const parseList = ( matcher, text ) => {
+		let lines = text.split( '\n' );
+
+		// If the first item has leading spaces, strip them from each line first.
+		const leadingSpace = lines[0].match( /^\s+/ );
+		if ( leadingSpace ) {
+			lines = lines.map( line => {
+				if ( line.substr( 0, leadingSpace[0].length ) === leadingSpace[0] ) {
+					return line.substr( leadingSpace[0].length );
+				}
+				return line;
+			});
+		}
+
+		// Split each list item into a separate "block".
+		let stripChars = 0;
+		const blocks = lines.reduce( ( blocks, line ) => {
+			const match = line.match( matcher );
+			if ( match ) {
+				stripChars = match[1].length;
+				blocks.push( [ line.substring( stripChars ) ] );
+				return blocks;
+			}
+
+			// Strip leading, if it's whitespace.
+			const stripped = line.substring( 0, stripChars ).trim().length === 0 ? line.substring( stripChars ) : line;
+			blocks[ blocks.length - 1 ].push( stripped );
+			return blocks;
+		}, [] );
+		return blocks.map( block => block.join( '\n' ) ).map( item =>  parser.toTree( item + '\n' ) );
+	};
+
+	parser.addRule( /((^ *[*-] (.+(\n {2}.+)*)(\n|$))+)/m, (_, text, ws) => {
 		return {
 			type: 'unordered-list',
-			text: strippedText,
-			children: parser.toTree( text ),
+			text,
+			children: parseList( /^([*-] )/, text, ws.length ),
 		}
 	});
-	parser.addRule( /^(\d+)\. (.+(\n {2}.+)*)/gm, (_, number, text) => {
-		const strippedText = text.replace( '\n  ', ' ' );
+	parser.addRule( /(^ *(\d+)\. (.+(\n {2}.+)*(\n|$))+)/m, (_, text, number) => {
 		return {
 			type: 'ordered-list',
-			text: strippedText,
+			text,
 			number,
-			children: parser.toTree( text ),
+			children: parseList( /^(\d+\. )/, text ),
 		}
 	});
 

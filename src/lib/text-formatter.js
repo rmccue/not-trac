@@ -22,10 +22,12 @@ const formatLeaf = leaf => {
 
 		// Lists.
 		case 'unordered-list': {
-			return <ul><li>{ formatTree( leaf.children ) }</li></ul>;
+			return <ul>{ leaf.children.map( item => <li>{ formatTree( item ) }</li> ) }</ul>;
 		}
 		case 'ordered-list': {
-			return <ol><li>{ formatTree( leaf.children ) }</li></ol>;
+			return <ol start={ leaf.number }>
+				{ leaf.children.map( item => <li>{ formatTree( item ) }</li> ) }
+			</ol>;
 		}
 
 		case 'citation':
