@@ -64,7 +64,7 @@ const formatLeaf = leaf => {
 		case 'ticket': {
 			const { id } = leaf;
 
-			return <Link to={ `/ticket/${id}` }>#{ id }</Link>;
+			return <Link to={ `/ticket/${id}` }>{ leaf.text }</Link>;
 		}
 		case 'mention': {
 			const id = leaf.text;
