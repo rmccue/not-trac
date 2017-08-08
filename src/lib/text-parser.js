@@ -98,11 +98,35 @@ const configure = parser => {
 	// parser.addRule( /\/\/(.+?)\/\//g, simple( 'italic' ) );
 
 	// Links.
-	parser.addRule( /\[(\S+) ([^\]]+)]/, (_, url, text) => {
+	parser.addRule( /\[(\S+)(?: ([^\]]+))?]/, (_, url, text) => {
+		// Match internal links first.
+		if ( url.match( /^\d+$/ ) ) {
+			return {
+				type: 'commit',
+				text: text || `[${ url }]`,
+				id: url,
+			}
+		}
+		let matches;
+		if ( matches = url.match( /^ticket:(\d+)$/i ) ) {
+			return {
+				type: 'ticket',
+				text: text || matches[1],
+				id: matches[1],
+			};
+		}
+		if ( matches = url.match( /^changeset:(\d+)$/i ) ) {
+			return {
+				type: 'commit',
+				text: text || matches[1],
+				id: matches[1],
+			};
+		}
+
 		return {
 			type: 'link',
 			url,
-			text: parser.toTree( text ),
+			text: parser.toTree( text || url ),
 		};
 	});
 	parser.addRule( /\b(https?:\/\/\S+)\b/, (_, url) => {
@@ -116,7 +140,6 @@ const configure = parser => {
 	// Cross-referencing.
 	parser.addRule( /(ticket:|#)(\d+)/gm, (text, _, id) => ({ type: 'ticket', text, id }) );
 	parser.addRule( /@(.+?)\b/g, simple( 'mention' ) );
-	parser.addRule( /\[(\d+)\]/g,                 (text, id) => ({ type: 'commit', text, id }) );
 	parser.addRule( /\b(?:r|changeset:)(\d+)\b/g, (text, id) => ({ type: 'commit', text, id }) );
 
 	// Paragraph separator.
