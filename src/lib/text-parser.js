@@ -122,6 +122,14 @@ const configure = parser => {
 				id: matches[1],
 			};
 		}
+		if ( matches = url.match( /^attachment:(([^:]+)(?::ticket:(\d+))?)$/i ) ) {
+			return {
+				type: 'attachment',
+				text: text || matches[1],
+				id: matches[2],
+				ticket: matches[3] || null,
+			};
+		}
 
 		return {
 			type: 'link',
@@ -138,6 +146,7 @@ const configure = parser => {
 	});
 
 	// Cross-referencing.
+	parser.addRule( /\battachment:([^:]+)(?::ticket:(\d+))?\b/i, (text, id, ticket) => ({ type: 'attachment', text, id, ticket }) );
 	parser.addRule( /(ticket:|#)(\d+)/gm, (text, _, id) => ({ type: 'ticket', text, id }) );
 	parser.addRule( /@(.+?)\b/g, simple( 'mention' ) );
 	parser.addRule( /\b(?:r|changeset:)(\d+)\b/g, (text, id) => ({ type: 'commit', text, id }) );

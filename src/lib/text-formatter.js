@@ -76,6 +76,12 @@ const formatLeaf = ( leaf, context ) => {
 
 			return <a href={ `/changeset/${ id }` }>{ text }</a>;
 		}
+		case 'attachment': {
+			const { id, text } = leaf;
+			const ticket = leaf.ticket || context.ticket || 0;
+
+			return <Link to={ `/attachment/ticket/${ ticket }/${ id }`}>{ text }</Link>;
+		}
 
 		// Paragraph separator.
 		case 'para':
