@@ -10,6 +10,8 @@ import Time from './Time';
 import Timeline from './Timeline';
 import TimelineEvent from './TimelineEvent';
 
+import './TicketChanges.css';
+
 const parseChanges = changes => {
 	let pending = [];
 
@@ -73,15 +75,24 @@ export default class TicketChanges extends React.PureComponent {
 				</TimelineEvent>;
 
 			case 'attachment': {
-				const icon = <span className="dashicons dashicons-upload"></span>
+				const patch = newval;
+				const icon = <span className="dashicons dashicons-upload"></span>;
 				return <TimelineEvent key={ key } compact icon={ icon }>
-					@{ author }
-					{ ' uploaded ' }
-					<Link to={ `/attachment/ticket/${ ticket }/${ newval }` }>
-						<code>{ newval }</code>
-					</Link>
-					{ ' ' }
-					<Time timestamp={ timestamp } />
+					<p>
+						<strong>@{ author }</strong>
+						{ ' uploaded a patch ' }
+						<Time timestamp={ timestamp } />
+					</p>
+					<p className="TicketChanges-attachment">
+						<Link to={ `/attachment/ticket/${ ticket }/${ patch }` }>
+							{ ( attachments && patch in attachments ) ?
+								<span className="TicketChanges-attachment-desc">
+									{ attachments[ patch ].description }
+								</span>
+							: null }
+							<code>{ patch }</code>
+						</Link>
+					</p>
 				</TimelineEvent>;
 			}
 
