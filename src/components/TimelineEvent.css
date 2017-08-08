@@ -36,6 +36,13 @@
 	justify-content: center;
 	align-items: center;
 }
+.TimelineEvent.workflow .TimelineEvent-icon {
+	background: #46b450;
+	color: #fff;
+}
+.TimelineEvent.closed .TimelineEvent-icon {
+	background: #dc3232;
+}
 
 .TimelineEvent-icon .dashicons {
 	height: 16px;
