@@ -170,11 +170,11 @@ export default class TicketChanges extends React.PureComponent {
 
 				let action;
 				if ( ! oldval && newval ) {
-					action = <span>added <code>{ newval }</code> { field }</span>;
+					action = <span>added <strong>{ newval }</strong> { field }</span>;
 				} else if ( ! newval && oldval ) {
-					action = <span>removed <code>{ oldval }</code> { field }</span>;
+					action = <span>removed <strong>{ oldval }</strong> { field }</span>;
 				} else {
-					action = <span>changed { field } from <code>{ oldval }</code> to <code>{ newval }</code></span>;
+					action = <span>changed { field } from <strong>{ oldval }</strong> to <strong>{ newval }</strong></span>;
 				}
 
 				const icon = <span className="dashicons dashicons-tag"></span>;
