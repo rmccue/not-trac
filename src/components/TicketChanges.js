@@ -177,7 +177,17 @@ export default class TicketChanges extends React.PureComponent {
 					action = <span>changed { field } from <strong>{ oldval }</strong> to <strong>{ newval }</strong></span>;
 				}
 
-				const icon = <span className="dashicons dashicons-tag"></span>;
+				let icon;
+				switch ( field ) {
+					case 'milestone':
+						icon = <span className="dashicons dashicons-calendar" />;
+						break;
+
+					default:
+						icon = <span className="dashicons dashicons-tag"></span>;
+						break;
+				}
+
 				return <TimelineEvent key={ key } compact icon={ icon }>
 					<UserLink user={ author } /> { action } <Time timestamp={ timestamp } />
 				</TimelineEvent>;
