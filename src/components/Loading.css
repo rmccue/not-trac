@@ -10,15 +10,8 @@
 	font-size: 2rem;
 }
 
-.Loading .dashicons {
-	animation: Loading-spin infinite 2s linear;
+.Loading .Spinner {
 	font-size: 40px;
 	height: 40px;
 	width: 40px;
-	margin-right: 0.5rem;
-}
-
-@keyframes Loading-spin {
-	from { transform: rotate(0deg); }
-	to { transform: rotate(360deg); }
 }

@@ -1,0 +1,9 @@
+.Spinner {
+	animation: Spinner-spin infinite 2s linear;
+	margin-right: 0.5rem;
+}
+
+@keyframes Spinner-spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
