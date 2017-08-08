@@ -34,6 +34,13 @@ pre {
 	overflow: scroll;
 }
 
+code {
+	background: #f5f2f0;
+	font-size: 0.9em;
+	padding: 0.2em 0.3em;
+	border-radius: 3px;
+}
+
 blockquote {
 	border-left: 2px solid #cbcdce;
 	margin-left: 0;
