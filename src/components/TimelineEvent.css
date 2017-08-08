@@ -10,7 +10,7 @@
 
 .TimelineEvent.compact {
 	padding-left: calc( 48px + 1rem + 2rem );
-	color: #32373c;
+	color: #555d66;
 }
 .TimelineEvent:before {
 	content: " ";
