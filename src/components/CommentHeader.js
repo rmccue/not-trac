@@ -2,8 +2,8 @@ import React from 'react';
 
 import './CommentHeader.css';
 
-export default ({ children, classname }) => (
-	<div className={`CommentHeader ${classname || ''}`}>
+export default ({ children, className }) => (
+	<div className={`CommentHeader ${className || ''}`}>
 		{ children }
 	</div>
 );

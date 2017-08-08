@@ -2,11 +2,11 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 
-import { push_ticket_change, set_ticket_changes, set_ticket_data } from '../actions';
+import { push_ticket_change, set_ticket_attachments, set_ticket_changes, set_ticket_data } from '../actions';
 import Loading from '../components/Loading';
 import TicketComponent from '../components/Ticket';
 import Trac from '../lib/trac';
-import { parseTicketResponse } from '../lib/workflow';
+import { parseAttachmentList, parseTicketResponse } from '../lib/workflow';
 
 class Ticket extends React.PureComponent {
 	constructor( props ) {
@@ -38,11 +38,17 @@ class Ticket extends React.PureComponent {
 			return;
 		}
 
+		// Load the full data in, if we're missing everything.
 		if ( ! data ) {
 			this.loadTicketAndChanges( id );
-		} else if ( ! data.attributes ) {
+			return;
+		}
+
+		// Otherwise, load the bits we need.
+		if ( ! data.attributes ) {
 			this.loadTicket( id );
-		} else if ( ! data.changes ) {
+		}
+		if ( ! data.changes ) {
 			this.loadChanges( id );
 		}
 	}
@@ -73,11 +79,17 @@ class Ticket extends React.PureComponent {
 				methodName: 'ticket.changeLog',
 				params: [ id, 0 ]
 			},
+			{
+				methodName: 'ticket.listAttachments',
+				params: [ id ]
+			}
 		];
 		this.loader = this.api.call( 'system.multicall', [ calls ] )
 			.then( results => {
 				dispatch( set_ticket_data( id, parseTicketResponse( results[0][0] ) ) );
 				dispatch( set_ticket_changes( id, results[1][0] ) );
+
+				dispatch( set_ticket_attachments( id, parseAttachmentList( results[2][0] ) ) );
 				this.loader = null;
 			});
 	}

@@ -6,9 +6,13 @@ import CommentContent from './CommentContent';
 import CommentMeta from './CommentMeta';
 import SlackMention from './SlackMention';
 import Tag from './Tag';
+import TicketState from './TicketState';
 import Time from './Time';
 import Timeline from './Timeline';
 import TimelineEvent from './TimelineEvent';
+import UserLink from './UserLink';
+
+import './TicketChanges.css';
 
 const parseChanges = changes => {
 	let pending = [];
@@ -73,20 +77,33 @@ export default class TicketChanges extends React.PureComponent {
 				</TimelineEvent>;
 
 			case 'attachment': {
-				const icon = <span className="dashicons dashicons-upload"></span>
+				const patch = newval;
+				const icon = <span className="dashicons dashicons-upload"></span>;
 				return <TimelineEvent key={ key } compact icon={ icon }>
-					@{ author }
-					{ ' uploaded ' }
-					<Link to={ `/attachment/ticket/${ ticket }/${ newval }` }>
-						<code>{ newval }</code>
-					</Link>
-					{ ' ' }
-					<Time timestamp={ timestamp } />
+					<p>
+						<UserLink user={ author } />
+						{ ' uploaded a patch ' }
+						<Time timestamp={ timestamp } />
+					</p>
+					<p className="TicketChanges-attachment">
+						<Link to={ `/attachment/ticket/${ ticket }/${ patch }` }>
+							{ ( attachments && patch in attachments && attachments[ patch ].description ) ?
+								<span className="TicketChanges-attachment-desc">
+									{ attachments[ patch ].description }
+								</span>
+							: null }
+							<code>{ patch }</code>
+						</Link>
+					</p>
 				</TimelineEvent>;
 			}
 
+			case 'focuses':
 			case 'keywords': {
-				const icon = <span className="dashicons dashicons-tag"></span>;
+				const icon = field === 'focuses' ?
+					<span className="dashicons dashicons-visibility" /> :
+					<span className="dashicons dashicons-tag" />;
+
 				const [ oldTags, newTags ] = [ oldval, newval ].map( set => {
 					return set
 						.trim()
@@ -110,14 +127,92 @@ export default class TicketChanges extends React.PureComponent {
 				}
 
 				return <TimelineEvent key={ key } compact icon={ icon }>
-					@{ author }
+					<UserLink user={ author } />
 					{ ' ' }
 					{ ( addText && removeText ) ?
 						<span>{ addText } and { removeText }</span>
 					: ( addText || removeText ) }
-					{ ' keywords ' }
+					{ ' ' + field + ' ' }
 					<Time timestamp={ timestamp } />
 				</TimelineEvent>
+			}
+
+			case 'owner': {
+				const icon = <span className="dashicons dashicons-admin-users"></span>;
+
+				let text;
+				switch ( true ) {
+					case ! oldval && newval === author:
+						text = <span><UserLink user={ author } /> self-assigned this</span>;
+						break;
+
+					case oldval === author && ! newval:
+						text = <span><UserLink user={ author } /> removed their assignment</span>;
+						break;
+
+					case ! newval && oldval:
+						text = <span><UserLink user={ author } /> was unassigned by <UserLink user={ author } /></span>;
+						break;
+
+					case newval && ! oldval:
+						text = <span><UserLink user={ newval } /> was assigned by <UserLink user={ author } /></span>;
+						break;
+
+					default:
+						text = <span><UserLink user={ author } /> assigned <UserLink user={ newval } /> and unassigned <UserLink user={ oldval } /></span>;
+						break;
+				}
+
+				return <TimelineEvent key={ key } compact icon={ icon }>
+					{ text } <Time timestamp={ timestamp } />
+				</TimelineEvent>;
+			}
+
+			case 'resolution': {
+				if ( ! newval ) {
+					// Handled by status.
+					return null;
+				}
+
+				let icon = <span className="dashicons dashicons-no" />;
+
+				return <TimelineEvent
+					key={ key }
+					closed
+					compact
+					icon={ icon }
+					workflow
+				>
+					<UserLink user={ author } /> closed this as
+					{ ' ' }
+					<strong>{ newval }</strong>
+					{ ' ' }
+					<Time timestamp={ timestamp } />
+				</TimelineEvent>;
+			}
+
+			case 'status': {
+				if ( newval === 'closed' ) {
+					// Handled by resolution.
+					return null;
+				}
+
+				let icon = <span className="dashicons dashicons-flag" />;
+
+				return <TimelineEvent
+					key={ key }
+					compact
+					icon={ icon }
+					workflow
+				>
+					<UserLink user={ author } />
+					{ ' changed status from ' }
+					<TicketState state={ oldval } />
+					{ ' to ' }
+					<TicketState state={ newval } />
+					{ ' ' }
+					<Time timestamp={ timestamp } />
+				</TimelineEvent>;
 			}
 
 			default: {
@@ -127,16 +222,26 @@ export default class TicketChanges extends React.PureComponent {
 
 				let action;
 				if ( ! oldval && newval ) {
-					action = <span>added <code>{ newval }</code> { field }</span>;
+					action = <span>added <strong>{ newval }</strong> { field }</span>;
 				} else if ( ! newval && oldval ) {
-					action = <span>removed <code>{ oldval }</code> { field }</span>;
+					action = <span>removed <strong>{ oldval }</strong> { field }</span>;
 				} else {
-					action = <span>changed { field } from <code>{ oldval }</code> to <code>{ newval }</code></span>;
+					action = <span>changed { field } from <strong>{ oldval }</strong> to <strong>{ newval }</strong></span>;
 				}
 
-				const icon = <span className="dashicons dashicons-tag"></span>;
+				let icon;
+				switch ( field ) {
+					case 'milestone':
+						icon = <span className="dashicons dashicons-calendar" />;
+						break;
+
+					default:
+						icon = <span className="dashicons dashicons-tag"></span>;
+						break;
+				}
+
 				return <TimelineEvent key={ key } compact icon={ icon }>
-					<strong>@{ author }</strong> { action } <Time timestamp={ timestamp } />
+					<UserLink user={ author } /> { action } <Time timestamp={ timestamp } />
 				</TimelineEvent>;
 			}
 		}

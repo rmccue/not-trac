@@ -1,16 +1,4 @@
-.CommentMeta {
-	display: flex;
-	justify-content: space-between;
-	background: #e5f5fa;
-	color: #82878c;
-	padding: 0.7rem 14px;
-}
-
-.CommentMeta p {
-	margin: 0;
-}
-
-.CommentMeta-author {
+.CommentMeta .UserLink {
 	color: #23282d;
 	font-weight: bold;
 }

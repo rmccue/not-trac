@@ -1,4 +1,4 @@
-import { PUSH_TICKET_CHANGE, SET_TICKET_CHANGES, SET_TICKET_DATA } from '../actions';
+import { PUSH_TICKET_CHANGE, SET_TICKET_ATTACHMENTS, SET_TICKET_CHANGES, SET_TICKET_DATA } from '../actions';
 
 export default function tickets( state = {}, action ) {
 	switch ( action.type ) {
@@ -16,6 +16,17 @@ export default function tickets( state = {}, action ) {
 					],
 				},
 			};
+		}
+
+		case SET_TICKET_ATTACHMENTS: {
+			const ticket = state[ action.id ] || {};
+			return {
+				...state,
+				[ action.id ]: {
+					...ticket,
+					attachments: action.attachments,
+				}
+			}
 		}
 
 		case SET_TICKET_CHANGES: {

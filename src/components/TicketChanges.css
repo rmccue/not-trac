@@ -1,0 +1,13 @@
+.TicketChanges-attachment {
+	margin-top: -0.5em;
+}
+
+.TicketChanges-attachment-desc {
+	font-weight: bold;
+	margin-right: 0.5rem;
+	color: #32373c;
+}
+
+.TicketChanges-attachment a:hover .TicketChanges-attachment-desc {
+	color: inherit;
+}

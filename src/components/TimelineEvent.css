@@ -10,7 +10,7 @@
 
 .TimelineEvent.compact {
 	padding-left: calc( 48px + 1rem + 2rem );
-	color: #32373c;
+	color: #555d66;
 }
 .TimelineEvent:before {
 	content: " ";
@@ -35,4 +35,26 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+.TimelineEvent.workflow .TimelineEvent-icon {
+	background: #46b450;
+	color: #fff;
+}
+.TimelineEvent.closed .TimelineEvent-icon {
+	background: #dc3232;
+}
+
+.TimelineEvent-icon .dashicons {
+	height: 16px;
+	width: 16px;
+	font-size: 16px;
+}
+
+.TimelineEvent.compact .UserLink {
+	color: inherit;
+	font-weight: bold;
+}
+
+.TimelineEvent.compact .UserLink:hover {
+	color: #00a0d2;
 }

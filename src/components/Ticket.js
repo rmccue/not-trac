@@ -5,28 +5,12 @@ import CommentContent from './CommentContent';
 import CommentMeta from './CommentMeta';
 import Loading from './Loading';
 import TicketChanges from './TicketChanges';
+import TicketState from './TicketState';
 import TicketStatus from './TicketStatus';
 import TicketUpdate from './TicketUpdate';
 import Time from './Time';
 
 import './Ticket.css';
-
-const TicketState = ({ state }) => {
-	switch ( state ) {
-		case 'accepted':
-		case 'assigned':
-		case 'new':
-		case 'reopened':
-		case 'reviewing':
-			return <span className="Ticket-state state-open">{ state }</span>;
-
-		case 'closed':
-			return <span className="Ticket-state state-closed">{ state }</span>;
-
-		default:
-			return <span className="Ticket-state">{ state }</span>;
-	}
-};
 
 export default class Ticket extends React.PureComponent {
 	render() {
@@ -72,6 +56,7 @@ export default class Ticket extends React.PureComponent {
 
 					{ changes ?
 						<TicketChanges
+							attachments={ this.props.attachments }
 							changes={ changes }
 							ticket={ id }
 						/>

@@ -2,6 +2,7 @@ export const PUSH_TICKET_CHANGE = 'PUSH_TICKET_CHANGE';
 export const SET_COMPONENTS = 'SET_COMPONENTS';
 export const SET_QUERY_PARAMS = 'SET_QUERY_PARAMS';
 export const SET_QUERY_RESULTS = 'SET_QUERY_RESULTS';
+export const SET_TICKET_ATTACHMENTS = 'SET_TICKET_ATTACHMENTS';
 export const SET_TICKET_CHANGES = 'SET_TICKET_CHANGES';
 export const SET_TICKET_DATA = 'SET_TICKET_DATA';
 export const SET_USER_CREDENTIALS = 'SET_USER_CREDENTIALS';
@@ -20,6 +21,10 @@ export function set_query_params( params ) {
 
 export function set_query_results( results ) {
 	return { type: SET_QUERY_RESULTS, results };
+}
+
+export function set_ticket_attachments( id, attachments ) {
+	return { type: SET_TICKET_ATTACHMENTS, id, attachments };
 }
 
 export function set_ticket_changes( id, changes ) {
