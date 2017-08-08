@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import CodeBlock from '../components/CodeBlock';
+import UserLink from '../components/UserLink';
 
 const PARA_MARKER = '__PARA_MARKER__';
 
@@ -69,7 +70,7 @@ const formatLeaf = ( leaf, context ) => {
 		case 'mention': {
 			const id = leaf.text;
 
-			return <a href={ `/user/${id}` }>@{ id }</a>;
+			return <UserLink user={ id } />;
 		}
 		case 'commit': {
 			const { id, text } = leaf;

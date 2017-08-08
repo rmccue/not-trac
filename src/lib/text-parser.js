@@ -4,6 +4,15 @@ const configure = parser => {
 	const simple   = type => (_, text) => ({ type, text });
 	const recursed = type => (_, text) => ({ type, text, children: parser.toTree( text ) });
 
+	// Code.
+	parser.addRule( /\{\{\{\s*(?:#!(\w+\n))?((.|\n)+?)\}\}\}/, (_, language, text) => {
+		if ( text.indexOf( '\n' ) >= 0 ) {
+			return { type: 'preformatted', text, language };
+		}
+
+		return { type: 'code', text };
+	});
+
 	// Headings.
 	parser.addRule( /^(={1,6})(.+?)(=*)$/gm, (_, heading, text) => {
 		return {
@@ -74,15 +83,6 @@ const configure = parser => {
 			text: text,
 			children: parser.toTree( content.join( '\n' ) ),
 		};
-	});
-
-	// Code.
-	parser.addRule( /\{\{\{\s*(?:#!(\w+\n))?((.|\n)+?)\}\}\}/, (_, language, text) => {
-		if ( text.indexOf( '\n' ) >= 0 ) {
-			return { type: 'preformatted', text, language };
-		}
-
-		return { type: 'code', text };
 	});
 
 	// Basic text formatting.

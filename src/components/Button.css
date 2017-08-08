@@ -1,5 +1,6 @@
 .Button {
 	display: inline-block;
+	font-family: inherit;
 	font-size: 13px;
 	line-height: 26px;
 	height: 28px;
