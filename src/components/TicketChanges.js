@@ -6,6 +6,7 @@ import CommentContent from './CommentContent';
 import CommentMeta from './CommentMeta';
 import SlackMention from './SlackMention';
 import Tag from './Tag';
+import TicketState from './TicketState';
 import Time from './Time';
 import Timeline from './Timeline';
 import TimelineEvent from './TimelineEvent';
@@ -164,6 +165,53 @@ export default class TicketChanges extends React.PureComponent {
 
 				return <TimelineEvent key={ key } compact icon={ icon }>
 					{ text } <Time timestamp={ timestamp } />
+				</TimelineEvent>;
+			}
+
+			case 'resolution': {
+				if ( ! newval ) {
+					// Handled by status.
+					return null;
+				}
+
+				let icon = <span className="dashicons dashicons-no" />;
+
+				return <TimelineEvent
+					key={ key }
+					closed
+					compact
+					icon={ icon }
+					workflow
+				>
+					<UserLink user={ author } /> closed this as
+					{ ' ' }
+					<strong>{ newval }</strong>
+					{ ' ' }
+					<Time timestamp={ timestamp } />
+				</TimelineEvent>;
+			}
+
+			case 'status': {
+				if ( newval === 'closed' ) {
+					// Handled by resolution.
+					return null;
+				}
+
+				let icon = <span className="dashicons dashicons-flag" />;
+
+				return <TimelineEvent
+					key={ key }
+					compact
+					icon={ icon }
+					workflow
+				>
+					<UserLink user={ author } />
+					{ ' changed status from ' }
+					<TicketState state={ oldval } />
+					{ ' to ' }
+					<TicketState state={ newval } />
+					{ ' ' }
+					<Time timestamp={ timestamp } />
 				</TimelineEvent>;
 			}
 
