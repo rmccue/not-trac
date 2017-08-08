@@ -86,7 +86,7 @@ export default class TicketChanges extends React.PureComponent {
 					</p>
 					<p className="TicketChanges-attachment">
 						<Link to={ `/attachment/ticket/${ ticket }/${ patch }` }>
-							{ ( attachments && patch in attachments ) ?
+							{ ( attachments && patch in attachments && attachments[ patch ].description ) ?
 								<span className="TicketChanges-attachment-desc">
 									{ attachments[ patch ].description }
 								</span>
