@@ -47,3 +47,10 @@ blockquote {
 	padding-left: 1rem;
 	color: #82878c;
 }
+
+hr {
+	border: 0;
+	height: 0.2rem;
+	background: #cbcdce;
+	margin: 1rem 0;
+}
