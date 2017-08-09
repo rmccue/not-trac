@@ -1,3 +1,4 @@
+export const PUSH_ATTACHMENT = 'PUSH_ATTACHMENT';
 export const PUSH_TICKET_CHANGE = 'PUSH_TICKET_CHANGE';
 export const SET_COMPONENTS = 'SET_COMPONENTS';
 export const SET_QUERY_PARAMS = 'SET_QUERY_PARAMS';
@@ -6,6 +7,10 @@ export const SET_TICKET_ATTACHMENTS = 'SET_TICKET_ATTACHMENTS';
 export const SET_TICKET_CHANGES = 'SET_TICKET_CHANGES';
 export const SET_TICKET_DATA = 'SET_TICKET_DATA';
 export const SET_USER_CREDENTIALS = 'SET_USER_CREDENTIALS';
+
+export function push_attachment( id, attachment ) {
+	return { type: PUSH_ATTACHMENT, id, attachment };
+}
 
 export function push_ticket_change( id, change ) {
 	return { type: PUSH_TICKET_CHANGE, id, change };
