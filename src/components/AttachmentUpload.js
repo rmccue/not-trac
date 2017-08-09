@@ -7,18 +7,20 @@ import Spinner from './Spinner';
 
 import './AttachmentUpload.css';
 
+const INITIAL_STATE = {
+	description: '',
+	file: null,
+	licenseAgree: false,
+	progress: 0,
+	uploading: false,
+	uploadMessage: '',
+};
+
 export default class AttachmentUpload extends React.PureComponent {
 	constructor( props ) {
 		super( props );
 
-		this.state = {
-			description: '',
-			file: null,
-			licenseAgree: false,
-			progress: 0,
-			uploading: false,
-			uploadMessage: '',
-		};
+		this.state = { ...INITIAL_STATE };
 	}
 
 	onUpload() {
@@ -52,15 +54,14 @@ export default class AttachmentUpload extends React.PureComponent {
 			const bufferView = new Uint8Array( reader.result );
 			const data = base64.fromByteArray( bufferView );
 
-			this.setState({
-				uploadMessage: 'Uploading to Trac…',
-			});
-
 			this.props.onUpload({
 				data,
 				description,
 				filename: file.name,
 			});
+
+			// Reset state.
+			this.setState({ ...INITIAL_STATE });
 		};
 
 		// Read in the file as a binary string.
