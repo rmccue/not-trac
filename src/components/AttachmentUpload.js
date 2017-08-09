@@ -123,7 +123,7 @@ export default class AttachmentUpload extends React.PureComponent {
 						/>
 						<Button fake>Upload an Attachment</Button>
 					</label>
-					<Button>Attach a Pull Request</Button>
+					{/*<Button>Attach a Pull Request</Button>*/}
 					<span>(Or drop files here.)</span>
 				</p>
 			</div>;
