@@ -5,6 +5,7 @@ import Comment from './Comment';
 import CommentContent from './CommentContent';
 import CommentMeta from './CommentMeta';
 import SlackMention from './SlackMention';
+import Spinner from './Spinner';
 import Tag from './Tag';
 import TicketState from './TicketState';
 import Time from './Time';
@@ -94,6 +95,12 @@ export default class TicketChanges extends React.PureComponent {
 							: null }
 							<code>{ patch }</code>
 						</Link>
+						{ ( attachments && patch in attachments && attachments[ patch ].isUploading ) ?
+							<span className="TicketChanges-attachment-uploading">
+								<Spinner />
+								Uploading to Trac&hellip;
+							</span>
+						: null}
 					</p>
 				</TimelineEvent>;
 			}
