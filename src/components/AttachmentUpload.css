@@ -1,3 +1,27 @@
+.AttachmentUpload.dropping {
+	border: 2px dashed #b4b9be;
+	border-radius: 3px;
+	height: 4rem;
+	position: relative;
+}
+.AttachmentUpload.dropping:before {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	content: "Drop files here";
+	font-size: 1rem;
+	color: #b4b9be;
+}
+.AttachmentUpload.dropping > .buttons {
+	display: none;
+}
 .AttachmentUpload > .buttons {
 	margin-top: -5px;
 }

@@ -9,6 +9,7 @@ import './AttachmentUpload.css';
 
 const INITIAL_STATE = {
 	description: '',
+	dropping: false,
 	file: null,
 	licenseAgree: false,
 	progress: 0,
@@ -74,11 +75,46 @@ export default class AttachmentUpload extends React.PureComponent {
 		});
 	}
 
+	onDragOver( e ) {
+		e.preventDefault();
+
+		// Explicitly show this is a copy.
+		e.dataTransfer.dropEffect = 'copy';
+
+		this.setState({ dropping: true });
+	}
+
+	onDragLeave( e ) {
+		e.preventDefault();
+
+		this.setState({ dropping: false });
+	}
+
+	onDrop( e ) {
+		e.preventDefault();
+
+		// If there's no files, ignore it.
+		if ( ! e.dataTransfer.files.length ) {
+			this.setState({ dropping: false });
+			return;
+		}
+
+		this.setState({
+			file: e.dataTransfer.files[0],
+			dropping: false
+		});
+	}
+
 	render() {
 		const { file, licenseAgree } = this.state;
 
 		if ( ! file ) {
-			return <div className="AttachmentUpload">
+			return <div
+				className={ `AttachmentUpload ${ this.state.dropping ? 'dropping' : ''}` }
+				onDragOver={ e => this.onDragOver( e ) }
+				onDragLeave={ e => this.onDragLeave( e ) }
+				onDrop={ e => this.onDrop( e ) }
+			>
 				<p className="buttons">
 					<label className="AttachmentUpload-uploader">
 						<input
@@ -88,6 +124,7 @@ export default class AttachmentUpload extends React.PureComponent {
 						<Button fake>Upload an Attachment</Button>
 					</label>
 					<Button>Attach a Pull Request</Button>
+					<span>(Or drop files here.)</span>
 				</p>
 			</div>;
 		}
