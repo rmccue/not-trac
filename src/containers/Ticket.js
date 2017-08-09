@@ -179,6 +179,7 @@ class Ticket extends React.PureComponent {
 			data,
 
 			// boolean replace=True
+			false,
 		];
 		const types = {
 			// Binary data
