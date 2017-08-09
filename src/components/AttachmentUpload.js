@@ -171,7 +171,11 @@ export default class AttachmentUpload extends React.PureComponent {
 						<Button
 							disabled={ ! licenseAgree }
 							onClick={ () => this.onUpload() }
+							primary
 						>Upload to Trac</Button>
+						<Button
+							onClick={ () => this.setState({ ...INITIAL_STATE }) }
+						>Cancel</Button>
 					</p>
 				</div>
 			}
