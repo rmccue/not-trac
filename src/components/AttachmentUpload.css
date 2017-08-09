@@ -23,7 +23,9 @@
 	display: none;
 }
 .AttachmentUpload > .buttons {
-	margin-top: -5px;
+	display: flex;
+	align-items: center;
+	margin-top: -2px;
 }
 .AttachmentUpload .Button {
 	margin-right: 0.5em;
