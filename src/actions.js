@@ -1,5 +1,7 @@
 export const PUSH_ATTACHMENT = 'PUSH_ATTACHMENT';
 export const PUSH_TICKET_CHANGE = 'PUSH_TICKET_CHANGE';
+export const RECEIVE_PRS = 'RECEIVE_PRS';
+export const REQUEST_PRS = 'REQUEST_PRS';
 export const SET_COMPONENTS = 'SET_COMPONENTS';
 export const SET_QUERY_PARAMS = 'SET_QUERY_PARAMS';
 export const SET_QUERY_RESULTS = 'SET_QUERY_RESULTS';
@@ -42,4 +44,19 @@ export function set_ticket_data( id, data ) {
 
 export function set_user_credentials( user ) {
 	return { type: SET_USER_CREDENTIALS, user };
+}
+
+export function update_prs() {
+	return (dispatch, getStore) => {
+		dispatch( { type: REQUEST_PRS } );
+
+		fetch( 'https://api.github.com/repos/WordPress/wordpress-develop/pulls?state=all' )
+			.then( resp => resp.json() )
+			.then( data => {
+				dispatch({
+					type: RECEIVE_PRS,
+					prs: data,
+				});
+			});
+	}
 }

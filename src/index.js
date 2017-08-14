@@ -12,6 +12,10 @@ import './index.css';
 
 // Prepare initial state for the store.
 const initialState = {
+	prs: {
+		state: null,
+		items: [],
+	},
 	query: {
 		params: {},
 		results: [],
