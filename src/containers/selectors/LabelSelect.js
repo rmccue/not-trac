@@ -40,12 +40,12 @@ ITEMS.unshift({
 	value: null,
 });
 
-export default ({ label, params, onSelect }) => {
+export default ({ label, selected, onSelect }) => {
 	let keywords;
-	if ( params.selected && Array.isArray( params.selected ) ) {
-		keywords = params.selected.map( k => k.replace( '~', '' ) );
-	} else if ( params.selected ) {
-		keywords = [ params.selected.replace( '~', '' ) ];
+	if ( selected && Array.isArray( selected ) ) {
+		keywords = selected.map( k => k.replace( '~', '' ) );
+	} else if ( selected ) {
+		keywords = [ selected.replace( '~', '' ) ];
 	} else {
 		keywords = [];
 	}
