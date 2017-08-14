@@ -125,6 +125,12 @@ class App extends React.Component {
 								/>
 							)}
 						/>
+						<Route render={ () => (
+							<div>
+								<h1>404</h1>
+								<p>No route matches this URL.</p>
+							</div>
+						)} />
 					</Switch>
 				</div>
 				<Footer />

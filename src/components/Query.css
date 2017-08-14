@@ -1,6 +1,7 @@
 .Query-header {
 	background: #e5f5fa;
 	color: #32373c;
+	border: 1px solid #bfe7f3;
 	border-radius: 3px 3px 0 0;
 	display: flex;
 	padding: 0.7em;
@@ -22,6 +23,16 @@
 	padding: 0;
 	margin: 0;
 	display: flex;
+}
+
+.Query-filter > li {
+	margin-left: 2em;
+}
+
+.Query-drop-arrow {
+	font-size: 0.6em;
+	vertical-align: middle;
+	opacity: 0.7;
 }
 
 .Query-empty {

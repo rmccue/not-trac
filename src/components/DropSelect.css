@@ -1,0 +1,42 @@
+.DropSelect-item {
+	border-bottom: 1px solid #bfe7f3;
+	margin: 0 -0.5em;
+}
+
+.DropSelect-item:first-of-type {
+	margin-top: -0.5em;
+}
+.DropSelect-item:last-of-type {
+	margin-bottom: -0.5em;
+	border-bottom: none;
+}
+
+.DropSelect-item:hover {
+	background: #e5f5fa;
+}
+
+.DropSelect-item button {
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	border: none;
+	text-align: left;
+
+	display: block;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+
+	padding: 0.5em 0.5em 0.5em 2.5em;
+	cursor: pointer;
+}
+
+.DropSelect-item.selected {
+	font-weight: bold;
+}
+
+.DropSelect-item.selected .dashicons {
+	margin-left: -1.5em;
+	margin-right: 0.5em;
+}
