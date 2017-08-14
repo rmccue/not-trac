@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { set_user_credentials } from './actions';
+import Avatar from './components/Avatar';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Login from './components/Login';
@@ -38,7 +39,9 @@ class App extends React.Component {
 		if ( ! user.username ) {
 			return <Router>
 				<div className="App">
-					<Header />
+					<Header
+						title="Not Trac"
+					/>
 					<div className="wrapper">
 						<Login
 							onSubmit={ user => dispatch( set_user_credentials( user ) ) }
@@ -52,8 +55,21 @@ class App extends React.Component {
 		return <Router>
 			<div className="App">
 				<Header
+					title="Not Trac"
 					user={ user }
-				/>
+				>
+					{ user ?
+						<ul>
+							<li>
+								<Link to="/">Components</Link>
+							</li>
+							<li>
+								<Avatar size={ 24 } user={ user.username } />
+								@{ user.username }
+							</li>
+						</ul>
+					: null }
+				</Header>
 				<div className="wrapper">
 					<Switch>
 						<Route
