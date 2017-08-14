@@ -83,8 +83,6 @@ export default class PullRequests extends React.PureComponent {
 		const { id, items, state } = this.props;
 		const { loading } = this.state;
 
-		console.log( this.props );
-
 		return <div className="PullRequests">
 			<Header title={ `Attach pull request to #${ id }` }>
 				<ul>
