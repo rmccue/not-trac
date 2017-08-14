@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import App from './App';
@@ -23,8 +24,13 @@ if ( existing ) {
 	initialState.user = JSON.parse( existing );
 }
 
+// Prepare middleware.
+const middleware = applyMiddleware(
+	thunk,
+);
+
 // Actually create the store.
-const store = createStore( reducer, initialState );
+const store = createStore( reducer, initialState, middleware );
 
 // Now, render.
 const render = App => {
