@@ -2,6 +2,7 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 
+import AttachmentUpload from './AttachmentUpload';
 import { push_attachment, push_ticket_change, set_ticket_attachments, set_ticket_changes, set_ticket_data } from '../actions';
 import Loading from '../components/Loading';
 import TicketComponent from '../components/Ticket';
@@ -237,12 +238,17 @@ class Ticket extends React.PureComponent {
 			`#${ id }: ${ data.attributes.summary }` :
 			`#${ id }: Loading...`;
 
+		const uploader = <AttachmentUpload
+			ticket={ data }
+			onComplete={ () => this.loadTicketAndChanges( id, 'attachments' ) }
+		/>;
+
 		return <DocumentTitle title={ title }>
 			<TicketComponent
 				{ ...data }
 				id={ parseInt( id, 10 ) }
+				uploader={ uploader }
 				onComment={ text => this.onComment( text ) }
-				onUpload={ upload => this.onUpload( upload ) }
 			/>
 		</DocumentTitle>;
 	}
