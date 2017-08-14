@@ -70,7 +70,10 @@ export default class DropSelect extends React.PureComponent {
 }
 
 DropSelect.propTypes = {
-	label: PropTypes.string.isRequired,
+	label: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element,
+	]).isRequired,
 	loading: PropTypes.bool,
 	items: PropTypes.list,
 	selected: PropTypes.oneOfType([
