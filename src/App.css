@@ -1,2 +1,9 @@
 .App {
 }
+.App .App-modal-backdrop {
+	background-color: rgba(50, 55, 60, 0.4);
+}
+.App .App-modal {
+	border: none;
+	box-shadow: 0 0 1px #0073aa;
+}

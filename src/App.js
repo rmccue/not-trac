@@ -1,7 +1,8 @@
 import qs from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Link, Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ModalContainer } from 'react-router-modal';
 
 import { set_user_credentials } from './actions';
 import Avatar from './components/Avatar';
@@ -15,6 +16,7 @@ import Summary from './containers/Summary';
 import Ticket from './containers/Ticket';
 
 import './App.css';
+import 'react-router-modal/css/react-router-modal.css';
 
 class App extends React.Component {
 	constructor( props ) {
@@ -126,6 +128,10 @@ class App extends React.Component {
 					</Switch>
 				</div>
 				<Footer />
+				<ModalContainer
+					backdropClassName="react-router-modal__backdrop App-modal-backdrop"
+					modalClassName="react-router-modal__modal App-modal"
+				/>
 			</div>
 		</Router>;
 	}
