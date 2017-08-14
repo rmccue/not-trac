@@ -68,8 +68,8 @@ class AttachmentUpload extends React.PureComponent {
 			author: user.username,
 			isUploading: true,
 		};
-		dispatch( push_ticket_change( ticket, change ) );
-		dispatch( push_attachment( ticket, tempAttachment ) );
+		dispatch( push_ticket_change( id, change ) );
+		dispatch( push_attachment( id, tempAttachment ) );
 
 		// And finally, save.
 		this.api.call( 'ticket.putAttachment', parameters, types )
