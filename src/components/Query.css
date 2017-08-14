@@ -29,6 +29,12 @@
 	margin-left: 2em;
 }
 
+.Query-drop-arrow {
+	font-size: 0.6em;
+	vertical-align: middle;
+	opacity: 0.7;
+}
+
 .Query-empty {
 	padding: 0.7em;
 	border: 1px solid #e5f5fa;

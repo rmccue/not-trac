@@ -42,6 +42,8 @@ const SORT_OPTIONS = [
 	},
 ];
 
+const Label = ({ text }) => <span>{ text } <span className="Query-drop-arrow">▼</span></span>;
+
 export default class Query extends React.PureComponent {
 	render() {
 		const { params, tickets, onNext, onPrevious, onUpdateQuery } = this.props;
@@ -56,21 +58,21 @@ export default class Query extends React.PureComponent {
 					<ul className="Query-filter">
 						<li>
 							<LabelSelect
-								label={ 'Labels ▼' }
+								label={ <Label text="Labels" /> }
 								onSelect={ value => onUpdateQuery( value ) }
 							/>
 						</li>
 
 						<li>
 							<MilestoneSelect
-								label={ 'Milestones ▼' }
+								label={ <Label text="Milestones" /> }
 								onSelect={ milestone => onUpdateQuery({ milestone }) }
 							/>
 						</li>
 
 						<li>
 							<DropSelect
-								label={ 'Sort ▼' }
+								label={ <Label text="Sort" /> }
 								items={ SORT_OPTIONS }
 								onSelect={ value => onUpdateQuery( value ) }
 							/>
