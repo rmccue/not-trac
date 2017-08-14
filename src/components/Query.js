@@ -24,6 +24,22 @@ const SORT_OPTIONS = [
 			desc: '0',
 		},
 	},
+	{
+		id: 'new-update',
+		title: 'Most recently updated',
+		value: {
+			order: 'changetime',
+			desc: '1',
+		},
+	},
+	{
+		id: 'old-update',
+		title: 'Least recently updated',
+		value: {
+			order: 'changetime',
+			desc: '0',
+		},
+	},
 ];
 
 export default class Query extends React.PureComponent {
