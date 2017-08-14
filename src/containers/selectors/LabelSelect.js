@@ -44,10 +44,11 @@ ITEMS.unshift({
 	},
 });
 
-export default ({ label, onSelect }) => (
+export default ({ label, params, onSelect }) => (
 	<DropSelect
 		items={ ITEMS }
 		label={ label }
+		selected={ 'keywords' in params ? params.keywords.replace( '~', '' ) : '' }
 		onSelect={ onSelect }
 	/>
 );

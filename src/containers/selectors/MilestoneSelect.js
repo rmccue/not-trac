@@ -24,7 +24,7 @@ class MilestoneSelect extends React.PureComponent {
 	}
 
 	render() {
-		const { label } = this.props;
+		const { label, params } = this.props;
 		const { loading, items } = this.state;
 
 		const allItems = [
@@ -41,6 +41,7 @@ class MilestoneSelect extends React.PureComponent {
 			loading={ loading }
 			loadingText="Loading milestones…"
 			title="Select a milestone"
+			selected={ params.milestone }
 			onLoad={ () => this.onLoad() }
 			onSelect={ this.props.onSelect }
 		/>;

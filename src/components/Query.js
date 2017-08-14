@@ -59,6 +59,7 @@ export default class Query extends React.PureComponent {
 						<li>
 							<LabelSelect
 								label={ <Label text="Labels" /> }
+								params={ params }
 								onSelect={ value => onUpdateQuery( value ) }
 							/>
 						</li>
@@ -66,6 +67,7 @@ export default class Query extends React.PureComponent {
 						<li>
 							<MilestoneSelect
 								label={ <Label text="Milestones" /> }
+								params={ params }
 								onSelect={ milestone => onUpdateQuery({ milestone }) }
 							/>
 						</li>
