@@ -17,8 +17,6 @@ class MilestoneSelect extends React.PureComponent {
 	}
 
 	onLoad() {
-		const { user } = this.props;
-
 		this.api.call( 'ticket.milestone.getAll' )
 			.then( items => this.setState({ items, loading: false }) );
 	}
