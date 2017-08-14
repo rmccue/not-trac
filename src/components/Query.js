@@ -50,6 +50,11 @@ export default class Query extends React.PureComponent {
 
 		const page = params.page ? parseInt( params.page, 10 ) : 1;
 
+		const matchedSort = SORT_OPTIONS.find( opt => {
+			return params.order === opt.value.order && params.desc === opt.value.desc;
+		});
+		const currentSort = matchedSort ? matchedSort.id : '';
+
 		return <div className="Query">
 			<h1>Query</h1>
 			<div className="Query-header">
@@ -76,6 +81,7 @@ export default class Query extends React.PureComponent {
 							<DropSelect
 								label={ <Label text="Sort" /> }
 								items={ SORT_OPTIONS }
+								selected={ currentSort }
 								onSelect={ value => onUpdateQuery( value ) }
 							/>
 						</li>
