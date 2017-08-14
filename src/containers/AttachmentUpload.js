@@ -8,19 +8,19 @@ class AttachmentUpload extends React.PureComponent {
 	componentDidMount() {
 		const { dispatch, prs } = this.props;
 		if ( ! prs.state ) {
-			this.props.dispatch( update_prs() );
+			dispatch( update_prs() );
 		}
 	}
 
 	onUpload( upload ) {
-		const { dispatch, id, user } = this.props;
+		const { dispatch, ticket, user } = this.props;
 		const { data, description, filename } = upload;
 
-		const ticket = parseInt( id, 10 );
+		const id = parseInt( ticket.id, 10 );
 
 		const parameters = [
 			// int ticket
-			ticket,
+			id,
 
 			// string filename
 			filename,
@@ -96,5 +96,5 @@ class AttachmentUpload extends React.PureComponent {
 }
 
 export default connect(
-	({ prs }) => ({ prs })
+	({ prs, user }) => ({ prs, user })
 )( AttachmentUpload );
