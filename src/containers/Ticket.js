@@ -2,7 +2,7 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 
-import { push_ticket_change, set_ticket_attachments, set_ticket_changes, set_ticket_data } from '../actions';
+import { push_attachment, push_ticket_change, set_ticket_attachments, set_ticket_changes, set_ticket_data } from '../actions';
 import Loading from '../components/Loading';
 import TicketComponent from '../components/Ticket';
 import Trac from '../lib/trac';
@@ -54,42 +54,49 @@ class Ticket extends React.PureComponent {
 	}
 
 	loadTicket( id ) {
-		const { dispatch } = this.props;
-
-		console.log( 'loading ticket...' );
-
-		this.api.call( 'ticket.get', [ id ] )
-			.then( data => dispatch( set_ticket_data( id, parseTicketResponse( data ) ) ) );
+		this.loadTicketAndChanges( id, 'ticket' );
 	}
 
 	loadChanges( id ) {
-		const { dispatch } = this.props;
-		this.api.call( 'ticket.changeLog', [ id, 0 ] )
-			.then( changes => dispatch( set_ticket_changes( id, changes ) ) );
+		this.loadTicketAndChanges( id, 'changes' );
 	}
 
-	loadTicketAndChanges( id ) {
-		const { dispatch } = this.props;
-		const calls = [
-			{
+	loadTicketAndChanges( id, force = null ) {
+		const { data, dispatch } = this.props;
+		const calls = [];
+		const handlers = [];
+
+		if ( ! data || force === 'ticket' ) {
+			calls.push({
 				methodName: 'ticket.get',
 				params: [ id ]
-			},
-			{
+			});
+			handlers.push( data => dispatch( set_ticket_data( id, parseTicketResponse( data ) ) ) );
+		}
+		if ( ! data || ! data.changes || force === 'changes' ) {
+			calls.push({
 				methodName: 'ticket.changeLog',
 				params: [ id, 0 ]
-			},
-			{
+			});
+			handlers.push( data => dispatch( set_ticket_changes( id, data ) ) );
+		}
+		if ( ! data || ! data.attachments || force === 'attachments' ) {
+			calls.push({
 				methodName: 'ticket.listAttachments',
 				params: [ id ]
-			}
-		];
+			});
+			handlers.push( data => dispatch( set_ticket_attachments( id, parseAttachmentList( data ) ) ) );
+		}
+		if ( calls.length < 1 ) {
+			return;
+		}
+
 		this.loader = this.api.call( 'system.multicall', [ calls ] )
 			.then( results => {
-				dispatch( set_ticket_data( id, parseTicketResponse( results[0][0] ) ) );
-				dispatch( set_ticket_changes( id, results[1][0] ) );
-
-				dispatch( set_ticket_attachments( id, parseAttachmentList( results[2][0] ) ) );
+				results.forEach( ( data, index ) => {
+					const callback = handlers[ index ];
+					callback( data[0] );
+				});
 				this.loader = null;
 			});
 	}
@@ -152,6 +159,73 @@ class Ticket extends React.PureComponent {
 			});
 	}
 
+	onUpload( upload ) {
+		const { dispatch, id, user } = this.props;
+		const { data, description, filename } = upload;
+
+		const ticket = parseInt( id, 10 );
+
+		const parameters = [
+			// int ticket
+			ticket,
+
+			// string filename
+			filename,
+
+			// string description
+			description,
+
+			// Binary data
+			data,
+
+			// boolean replace=True
+			false,
+		];
+		const types = {
+			// Binary data
+			3: 'base64',
+		};
+
+		// Optimistically render.
+		const tempTimestamp = parseInt( Date.now() / 1000, 10 );
+		const change = [
+			// timestamp
+			tempTimestamp,
+
+			// author
+			user.username,
+
+			// field
+			'attachment',
+
+			// oldval
+			'',
+
+			// newval (filename)
+			filename,
+
+			// permanent
+			true,
+		];
+		const tempAttachment = {
+			id: filename,
+			description,
+			size: 0,
+			timestamp: tempTimestamp,
+			author: user.username,
+			isUploading: true,
+		};
+		dispatch( push_ticket_change( ticket, change ) );
+		dispatch( push_attachment( ticket, tempAttachment ) );
+
+		// And finally, save.
+		this.api.call( 'ticket.putAttachment', parameters, types )
+			.then( () => {
+				// Reload changes and attachments.
+				this.loadTicketAndChanges( id, 'attachments' );
+			});
+	}
+
 	render() {
 		const { data, id } = this.props;
 
@@ -168,6 +242,7 @@ class Ticket extends React.PureComponent {
 				{ ...data }
 				id={ parseInt( id, 10 ) }
 				onComment={ text => this.onComment( text ) }
+				onUpload={ upload => this.onUpload( upload ) }
 			/>
 		</DocumentTitle>;
 	}

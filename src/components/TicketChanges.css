@@ -11,3 +11,7 @@
 .TicketChanges-attachment a:hover .TicketChanges-attachment-desc {
 	color: inherit;
 }
+
+.TicketChanges-attachment-uploading {
+	margin-left: 1rem;
+}

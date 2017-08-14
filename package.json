@@ -6,6 +6,8 @@
     "react-scripts": "1.0.10"
   },
   "dependencies": {
+    "base64-js": "^1.2.1",
+    "bytes": "^2.5.0",
     "moment": "^2.18.1",
     "prismjs": "^1.6.0",
     "prop-types": "^15.5.10",
