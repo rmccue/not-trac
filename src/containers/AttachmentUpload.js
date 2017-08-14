@@ -5,6 +5,13 @@ import { push_attachment, push_ticket_change, update_prs } from '../actions';
 import AttachmentUploadComponent from '../components/AttachmentUpload';
 
 class AttachmentUpload extends React.PureComponent {
+	componentDidMount() {
+		const { dispatch, prs } = this.props;
+		if ( ! prs.state ) {
+			this.props.dispatch( update_prs() );
+		}
+	}
+
 	onUpload( upload ) {
 		const { dispatch, id, user } = this.props;
 		const { data, description, filename } = upload;
