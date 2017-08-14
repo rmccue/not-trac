@@ -78,6 +78,15 @@ export default class AttachmentUpload extends React.PureComponent {
 		});
 	}
 
+	onSelectPull( pull, file ) {
+		const description = `${ pull.title } (From ${ pull.html_url })`;
+
+		this.setState({
+			description,
+			file,
+		});
+	}
+
 	onDragOver( e ) {
 		e.preventDefault();
 
@@ -145,6 +154,7 @@ export default class AttachmentUpload extends React.PureComponent {
 							state={ prs.state }
 							onCancel={ () => this.setState({ showingPullSelector: false }) }
 							onReload={ this.props.onLoadPulls }
+							onSelect={ ( pull, file ) => this.onSelectPull( pull, file ) }
 						/>
 					</Modal>
 				: null }
