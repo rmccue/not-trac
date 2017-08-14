@@ -31,24 +31,57 @@ const ITEMS = Object.keys( CORE_LABELS ).map( label => {
 	return {
 		id: label,
 		title: <Tag name={ label } />,
-		value: {
-			keywords: "~" + label,
-		},
+		value: label,
 	};
 });
 ITEMS.unshift({
 	id: '',
 	title: 'None',
-	value: {
-		keywords: undefined,
-	},
+	value: null,
 });
 
-export default ({ label, params, onSelect }) => (
-	<DropSelect
+export default ({ label, params, onSelect }) => {
+	let keywords;
+	if ( params.keywords && Array.isArray( params.keywords ) ) {
+		keywords = params.keywords.map( k => k.replace( '~', '' ) );
+	} else if ( params.keywords ) {
+		keywords = [ params.keywords.replace( '~', '' ) ];
+	} else {
+		keywords = [];
+	}
+
+	const onAdd = value => {
+		if ( value === null ) {
+			onSelect({
+				keywords: undefined,
+			});
+			return;
+		}
+
+		// Add to list.
+		onSelect({
+			keywords: [ ...keywords, value ].map( v => "~" + v ),
+		});
+	};
+	const onRemove = value => {
+		const nextKeywords = keywords.filter( v => v !== value );
+		if ( nextKeywords.length === 0 ) {
+			onSelect({
+				keywords: undefined,
+			});
+			return;
+		}
+
+		onSelect({
+			keywords: nextKeywords.map( v => "~" + v ),
+		});
+	};
+
+	return <DropSelect
 		items={ ITEMS }
 		label={ label }
-		selected={ 'keywords' in params ? params.keywords.replace( '~', '' ) : '' }
-		onSelect={ onSelect }
-	/>
-);
+		selected={ keywords }
+		onSelect={ onAdd }
+		onDeselect={ onRemove }
+	/>;
+};
