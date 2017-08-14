@@ -24,6 +24,10 @@
 	display: flex;
 }
 
+.Query-filter > li {
+	margin-left: 0.5rem;
+}
+
 .Query-empty {
 	padding: 0.7em;
 	border: 1px solid #e5f5fa;

@@ -1,8 +1,28 @@
 import React from 'react';
 
+import DropSelect from './DropSelect';
 import TicketList from './TicketList';
 
 import './Query.css';
+
+const SORT_OPTIONS = [
+	{
+		id: 'new',
+		title: 'Newest',
+		value: {
+			order: 'time',
+			desc: '1',
+		},
+	},
+	{
+		id: 'old',
+		title: 'Oldest',
+		value: {
+			order: 'time',
+			desc: '0',
+		},
+	},
+];
 
 export default class Query extends React.PureComponent {
 	render() {
@@ -15,9 +35,16 @@ export default class Query extends React.PureComponent {
 			<div className="Query-header">
 				<div className="Query-count" />
 				<nav>
-					<ul>
+					<ul className="Query-filter">
 						<li><a href="#">Milestones &#9660;</a></li>
-						<li><a href="#">Sort &#9660;</a></li>
+
+						<li>
+							<DropSelect
+								label={ 'Sort ▼' }
+								items={ SORT_OPTIONS }
+								onSelect={ value => onUpdateQuery( value ) }
+							/>
+						</li>
 					</ul>
 				</nav>
 			</div>
