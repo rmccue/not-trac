@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { push_attachment, push_ticket_change } from '../actions';
+import { push_attachment, push_ticket_change, update_prs } from '../actions';
 import AttachmentUploadComponent from '../components/AttachmentUpload';
 
 class AttachmentUpload extends React.PureComponent {
@@ -73,19 +73,21 @@ class AttachmentUpload extends React.PureComponent {
 	}
 
 	render() {
-		const { dispatch, ticket } = this.props;
+		const { dispatch, prs, ticket } = this.props;
 
 		if ( ! ticket ) {
 			return null;
 		}
 
 		return <AttachmentUploadComponent
+			prs={ prs }
 			ticket={ ticket }
+			onLoadPulls={ () => dispatch( update_prs() ) }
 			onUpload={ upload => this.onUpload( upload ) }
 		/>;
 	}
 }
 
 export default connect(
-	() => ({ })
+	({ prs }) => ({ prs })
 )( AttachmentUpload );
