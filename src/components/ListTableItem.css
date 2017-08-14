@@ -1,0 +1,30 @@
+.ListTableItem {
+	display: flex;
+	border: 1px solid #bfe7f3;
+	border-bottom-style: none;
+	padding: 0.7em;
+}
+
+.ListTableItem:hover {
+	background: #e5f5fa;
+}
+
+.ListTableItem:last-of-type {
+	border-bottom-style: solid;
+}
+
+.ListTableItem > .col-main {
+	flex-grow: 1;
+	line-height: 1.6;
+}
+
+.ListTableItem .col-main-title {
+	font-weight: bold;
+	margin: 0;
+}
+.ListTableItem .col-main-title:hover {
+	color: #00a0d2;
+}
+.ListTableItem .col-main-title a {
+	color: inherit;
+}

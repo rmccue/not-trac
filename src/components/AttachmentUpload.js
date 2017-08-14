@@ -1,8 +1,10 @@
 import base64 from 'base64-js';
 import bytes from 'bytes';
 import React from 'react';
+import { Modal } from 'react-router-modal';
 
 import Button from './Button';
+import PullRequests from './PullRequests';
 import Spinner from './Spinner';
 
 import './AttachmentUpload.css';
@@ -13,6 +15,7 @@ const INITIAL_STATE = {
 	file: null,
 	licenseAgree: false,
 	progress: 0,
+	showingPullSelector: false,
 	uploading: false,
 	uploadMessage: '',
 };
@@ -75,6 +78,15 @@ export default class AttachmentUpload extends React.PureComponent {
 		});
 	}
 
+	onSelectPull( pull, file ) {
+		const description = `${ pull.title } (From ${ pull.html_url })`;
+
+		this.setState({
+			description,
+			file,
+		});
+	}
+
 	onDragOver( e ) {
 		e.preventDefault();
 
@@ -106,6 +118,7 @@ export default class AttachmentUpload extends React.PureComponent {
 	}
 
 	render() {
+		const { prs, ticket } = this.props;
 		const { file, licenseAgree } = this.state;
 
 		if ( ! file ) {
@@ -123,9 +136,28 @@ export default class AttachmentUpload extends React.PureComponent {
 						/>
 						<Button fake>Upload an Attachment</Button>
 					</label>
-					{/*<Button>Attach a Pull Request</Button>*/}
+					{ prs ?
+						<Button
+							onClick={ () => this.setState({ showingPullSelector: true }) }
+						>
+							Attach a Pull Request
+						</Button>
+					: null }
 					<span>(Or drop files here.)</span>
 				</p>
+
+				{ prs && this.state.showingPullSelector ?
+					<Modal>
+						<PullRequests
+							id={ ticket.id }
+							items={ prs.items }
+							state={ prs.state }
+							onCancel={ () => this.setState({ showingPullSelector: false }) }
+							onReload={ this.props.onLoadPulls }
+							onSelect={ ( pull, file ) => this.onSelectPull( pull, file ) }
+						/>
+					</Modal>
+				: null }
 			</div>;
 		}
 

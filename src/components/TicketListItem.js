@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Avatar from './Avatar';
+import ListTableItem from './ListTableItem';
 import Tag from './Tag';
 import Time from './Time';
 import { getKeywords, getTicketType } from '../lib/workflow';
@@ -22,7 +23,7 @@ export default class TicketListItem extends React.PureComponent {
 
 		const type = getTicketType( ticket );
 
-		return <li className="TicketListItem">
+		return <ListTableItem className="TicketListItem">
 			<div className={ `col-type type-${ type }` }>
 				{ type === 'bug' ?
 					<span className="dashicons dashicons-warning"></span>
@@ -34,7 +35,7 @@ export default class TicketListItem extends React.PureComponent {
 			</div>
 			<div className="col-main">
 				<div className="TicketListItem-detail-title-block">
-					<p className="TicketListItem-detail-title">
+					<p className="col-main-title">
 						<Link to={ `/ticket/${ ticket.id }` }>
 							{ ticket.attributes.summary }
 						</Link>
@@ -78,6 +79,6 @@ export default class TicketListItem extends React.PureComponent {
 					}
 				</span>
 			</div>
-		</li>;
+		</ListTableItem>;
 	}
 }

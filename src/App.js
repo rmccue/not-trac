@@ -1,9 +1,11 @@
 import qs from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Link, Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ModalContainer } from 'react-router-modal';
 
 import { set_user_credentials } from './actions';
+import Avatar from './components/Avatar';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Login from './components/Login';
@@ -14,6 +16,7 @@ import Summary from './containers/Summary';
 import Ticket from './containers/Ticket';
 
 import './App.css';
+import 'react-router-modal/css/react-router-modal.css';
 
 class App extends React.Component {
 	constructor( props ) {
@@ -38,7 +41,9 @@ class App extends React.Component {
 		if ( ! user.username ) {
 			return <Router>
 				<div className="App">
-					<Header />
+					<Header
+						title="Not Trac"
+					/>
 					<div className="wrapper">
 						<Login
 							onSubmit={ user => dispatch( set_user_credentials( user ) ) }
@@ -52,8 +57,21 @@ class App extends React.Component {
 		return <Router>
 			<div className="App">
 				<Header
+					title="Not Trac"
 					user={ user }
-				/>
+				>
+					{ user ?
+						<ul>
+							<li>
+								<Link to="/">Components</Link>
+							</li>
+							<li>
+								<Avatar size={ 24 } user={ user.username } />
+								@{ user.username }
+							</li>
+						</ul>
+					: null }
+				</Header>
 				<div className="wrapper">
 					<Switch>
 						<Route
@@ -110,6 +128,10 @@ class App extends React.Component {
 					</Switch>
 				</div>
 				<Footer />
+				<ModalContainer
+					backdropClassName="react-router-modal__backdrop App-modal-backdrop"
+					modalClassName="react-router-modal__modal App-modal"
+				/>
 			</div>
 		</Router>;
 	}
