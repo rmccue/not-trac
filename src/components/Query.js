@@ -2,6 +2,8 @@ import React from 'react';
 
 import DropSelect from './DropSelect';
 import TicketList from './TicketList';
+import LabelSelect from '../containers/selectors/LabelSelect';
+import MilestoneSelect from '../containers/selectors/MilestoneSelect';
 
 import './Query.css';
 
@@ -36,7 +38,19 @@ export default class Query extends React.PureComponent {
 				<div className="Query-count" />
 				<nav>
 					<ul className="Query-filter">
-						<li><a href="#">Milestones &#9660;</a></li>
+						<li>
+							<LabelSelect
+								label={ 'Labels ▼' }
+								onSelect={ value => onUpdateQuery( value ) }
+							/>
+						</li>
+
+						<li>
+							<MilestoneSelect
+								label={ 'Milestones ▼' }
+								onSelect={ milestone => onUpdateQuery({ milestone }) }
+							/>
+						</li>
 
 						<li>
 							<DropSelect
