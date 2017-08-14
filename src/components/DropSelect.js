@@ -49,7 +49,14 @@ export default class DropSelect extends React.PureComponent {
 					const className = current ? "DropSelect-item selected" : "DropSelect-item";
 
 					return <li key={ key } className={ className }>
-						<button onClick={ () => this.props.onSelect( value ) }>
+						<button
+							onClick={ ( current && this.props.onDeselect ) ?
+								() => this.props.onDeselect( value )
+							:
+								() => this.props.onSelect( value )
+							}
+							type="button"
+						>
 							{ current ?
 								<span className="dashicons dashicons-yes" />
 							: null }
@@ -73,6 +80,7 @@ DropSelect.propTypes = {
 	title: PropTypes.string,
 	onLoad: PropTypes.func,
 	onSelect: PropTypes.func.isRequired,
+	onDeselect: PropTypes.func,
 };
 DropSelect.defaultProps = {
 	loading: false,
