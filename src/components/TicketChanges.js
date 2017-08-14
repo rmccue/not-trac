@@ -80,6 +80,15 @@ export default class TicketChanges extends React.PureComponent {
 			case 'attachment': {
 				const patch = newval;
 				const icon = <span className="dashicons dashicons-upload"></span>;
+				let description = attachments && patch in attachments && attachments[ patch ].description;
+				let pullLink = null;
+				if ( description && description.indexOf( 'https://github.com/WordPress/wordpress-develop/pull/' ) ) {
+					pullLink = description.match( /(https:\/\/github.com\/WordPress\/wordpress-develop\/pull\/\d+)/i )[ 1 ];
+					description = description.replace(
+						/\(From (https:\/\/github.com\/WordPress\/wordpress-develop\/pull\/\d+)\)/,
+						''
+					);
+				}
 				return <TimelineEvent key={ key } compact icon={ icon }>
 					<p>
 						<UserLink user={ author } />
@@ -88,9 +97,9 @@ export default class TicketChanges extends React.PureComponent {
 					</p>
 					<p className="TicketChanges-attachment">
 						<Link to={ `/attachment/ticket/${ ticket }/${ patch }` }>
-							{ ( attachments && patch in attachments && attachments[ patch ].description ) ?
+							{ description ?
 								<span className="TicketChanges-attachment-desc">
-									{ attachments[ patch ].description }
+									{ description }
 								</span>
 							: null }
 							<code>{ patch }</code>
@@ -101,6 +110,15 @@ export default class TicketChanges extends React.PureComponent {
 								Uploading to Trac&hellip;
 							</span>
 						: null}
+						{ pullLink ?
+							<p>
+								<a href={ pullLink } target="_blank">
+									Open pull request
+									{ ' ' }
+									<span className="dashicons dashicons-external" />
+								</a>
+							</p>
+						: null }
 					</p>
 				</TimelineEvent>;
 			}
