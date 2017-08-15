@@ -25,21 +25,14 @@ class MilestoneSelect extends React.PureComponent {
 		const { label, selected } = this.props;
 		const { loading, items } = this.state;
 
-		const allItems = [
-			{
-				title: 'No milestone',
-				value: undefined,
-			},
-			...items,
-		];
-
 		return <DropSelect
-			items={ allItems }
+			items={ items }
 			label={ label }
 			loading={ loading }
 			loadingText="Loading milestones…"
 			title="Select a milestone"
 			selected={ selected }
+			onDeselect={ () => this.props.onSelect( undefined ) }
 			onLoad={ () => this.onLoad() }
 			onSelect={ this.props.onSelect }
 		/>;
