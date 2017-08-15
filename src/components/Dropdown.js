@@ -10,12 +10,34 @@ export default class Dropdown extends React.PureComponent {
 		this.state = {
 			expanded: false,
 		};
+		this.documentClickListener = e => this.onDocumentClick( e );
+	}
+
+	onDocumentClick( e ) {
+		// Ignore events inside the dropdown.
+		if ( ! this.root || this.root.contains( e.target ) ) {
+			return;
+		}
+
+		// Remove handler.
+		document.removeEventListener( 'click', this.documentClickListener );
+
+		this.setState({ expanded: false });
+		this.props.onToggle( false );
 	}
 
 	onToggle( e ) {
 		e.preventDefault();
 
 		const { expanded } = this.state;
+		if ( ! expanded ) {
+			// Hide on the next click anywhere else.
+			document.addEventListener( 'click', this.documentClickListener );
+		} else if ( this.documentClickListener ) {
+			// Remove handler.
+			document.removeEventListener( 'click', this.documentClickListener );
+		}
+
 		this.setState({ expanded: ! expanded });
 		this.props.onToggle( ! expanded );
 	}
@@ -26,7 +48,7 @@ export default class Dropdown extends React.PureComponent {
 
 		const className = expanded ? 'Dropdown expanded' : 'Dropdown';
 
-		return <div className={ className }>
+		return <div className={ className } ref={ ref => this.root = ref }>
 			<button
 				className="Dropdown-trigger"
 				onClick={ e => this.onToggle( e ) }
