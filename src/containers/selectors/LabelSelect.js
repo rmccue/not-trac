@@ -76,6 +76,7 @@ export default ({ label, selected, onSelect }) => {
 		items={ ITEMS }
 		label={ label }
 		selected={ keywords }
+		title="Select labels"
 		onSelect={ onAdd }
 		onDeselect={ onRemove }
 	/>;
