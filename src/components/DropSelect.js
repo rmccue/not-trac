@@ -28,6 +28,45 @@ export default class DropSelect extends React.PureComponent {
 		// Cast selected to array.
 		const selected = typeof this.props.selected === "string" ? [ this.props.selected ] : this.props.selected;
 
+		// Cast items to expected.
+		const fullItems = items.map( value => {
+			// Turn strings into full objects.
+			if ( typeof value !== 'object' ) {
+				return {
+					title: value,
+					value: value,
+					id: value,
+					selected: selected.indexOf( value ) >= 0,
+				};
+			}
+
+			const item = { ...value };
+
+			if ( ! ( 'id' in item ) ) {
+				item.id = item.value;
+			}
+			item.selected = selected.indexOf( item.id ) >= 0;
+
+			return item;
+		});
+
+		// Move selected items to the top, if we can.
+		let orderedItems = [];
+		if ( selected.length > 0 ) {
+			const unselected = fullItems.filter( item => {
+				if ( item.selected ) {
+					// Remove from this list, and manually add.
+					orderedItems.push( item );
+					return false;
+				}
+
+				return true;
+			});
+			orderedItems = [ ...orderedItems, ...unselected ];
+		} else {
+			orderedItems = fullItems;
+		}
+
 		const header = title ? <Header title={ title } /> : null;
 		return <Dropdown
 			header={ header }
@@ -40,27 +79,22 @@ export default class DropSelect extends React.PureComponent {
 					{ loadingText }
 				</li>
 			:
-				items.map( item => {
-					const value = typeof item === 'object' ? item.value : item;
-					const title = typeof item === 'object' ? item.title : value;
-					const key = typeof item === 'object' && 'id' in item ? item.id : value;
+				orderedItems.map( item => {
+					const className = item.selected ? "DropSelect-item selected" : "DropSelect-item";
 
-					const current = selected.indexOf( key ) >= 0;
-					const className = current ? "DropSelect-item selected" : "DropSelect-item";
-
-					return <li key={ key } className={ className }>
+					return <li key={ item.id } className={ className }>
 						<button
-							onClick={ ( current && this.props.onDeselect ) ?
-								() => this.props.onDeselect( value )
+							onClick={ ( item.selected && this.props.onDeselect ) ?
+								() => this.props.onDeselect( item.value )
 							:
-								() => this.props.onSelect( value )
+								() => this.props.onSelect( item.value )
 							}
 							type="button"
 						>
-							{ current ?
+							{ item.selected ?
 								<span className="dashicons dashicons-yes" />
 							: null }
-							{ title }
+							{ item.title }
 						</button>
 					</li>;
 				})
