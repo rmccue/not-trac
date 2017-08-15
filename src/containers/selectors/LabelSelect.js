@@ -34,11 +34,6 @@ const ITEMS = Object.keys( CORE_LABELS ).map( label => {
 		value: label,
 	};
 });
-ITEMS.unshift({
-	id: '',
-	title: 'None',
-	value: null,
-});
 
 export default ({ label, selected, onSelect }) => {
 	let keywords;
@@ -81,6 +76,7 @@ export default ({ label, selected, onSelect }) => {
 		items={ ITEMS }
 		label={ label }
 		selected={ keywords }
+		title="Select labels"
 		onSelect={ onAdd }
 		onDeselect={ onRemove }
 	/>;

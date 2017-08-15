@@ -24,6 +24,13 @@
 	flex-shrink: 0;
 }
 
+.TicketListItem-detail-milestone {
+	color: inherit;
+}
+a.TicketListItem-detail-milestone:hover {
+	color: #00a0d2;
+}
+
 .TicketListItem > .col-extra {
 	display: flex;
 	font-size: 0.8em;

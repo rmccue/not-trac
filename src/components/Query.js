@@ -1,6 +1,10 @@
+import qs from 'query-string';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import DropSelect from './DropSelect';
+import Loading from './Loading';
+import Tag from './Tag';
 import TicketList from './TicketList';
 import LabelSelect from '../containers/selectors/LabelSelect';
 import MilestoneSelect from '../containers/selectors/MilestoneSelect';
@@ -45,13 +49,42 @@ const SORT_OPTIONS = [
 const Label = ({ text }) => <span>{ text } <span className="Query-drop-arrow">▼</span></span>;
 
 export default class Query extends React.PureComponent {
+	constructor( props ) {
+		super( props );
+
+		this.milestoneComponent = ({ className, name }) => {
+			const nextParams = {
+				...this.props.params,
+				milestone: name,
+			};
+			const search = '?' + qs.stringify( nextParams );
+			return <Link className={ className } to={{ search }}>
+				<span className="dashicons dashicons-post-status" />
+				{ name }
+			</Link>;
+		};
+		this.labelComponent = ({ name }) => {
+			const nextParams = {
+				...this.props.params,
+				keywords: '~' + name,
+			};
+			const search = '?' + qs.stringify( nextParams );
+			return <Link to={{ search }}>
+				<Tag name={ name } />
+			</Link>;
+		};
+	}
+
 	render() {
-		const { params, tickets, onNext, onPrevious, onUpdateQuery } = this.props;
+		const { loading, params, tickets, onNext, onPrevious, onUpdateQuery } = this.props;
 
 		const page = params.page ? parseInt( params.page, 10 ) : 1;
 
+		const currentOrder = params.order || 'time';
+		const currentOrderDesc = params.desc || '1';
+
 		const matchedSort = SORT_OPTIONS.find( opt => {
-			return params.order === opt.value.order && params.desc === opt.value.desc;
+			return currentOrder === opt.value.order && currentOrderDesc === opt.value.desc;
 		});
 		const currentSort = matchedSort ? matchedSort.id : '';
 
@@ -88,19 +121,27 @@ export default class Query extends React.PureComponent {
 					</ul>
 				</nav>
 			</div>
-			{ tickets.length === 0 ? (
-				page > 1 ? (
-					<p className="Query-empty">
-						No results, you might be out of pages.
-						<button
-							onClick={ () => onUpdateQuery({ page: 1 }) }
-							type="button"
-						>Try page 1?</button></p>
-				) : (
-					<p className="Query-empty">No results for your query.</p>
-				)
+			{ loading ? (
+				<Loading />
 			) : (
-				<TicketList tickets={ tickets } />
+				tickets.length === 0 ? (
+					page > 1 ? (
+						<p className="Query-empty">
+							No results, you might be out of pages.
+							<button
+								onClick={ () => onUpdateQuery({ page: 1 }) }
+								type="button"
+							>Try page 1?</button></p>
+					) : (
+						<p className="Query-empty">No results for your query.</p>
+					)
+				) : (
+					<TicketList
+						tickets={ tickets }
+						labelComponent={ this.labelComponent }
+						milestoneComponent={ this.milestoneComponent }
+					/>
+				)
 			) }
 			<div className="Query-footer">
 				<p>
