@@ -51,8 +51,11 @@ export default class Query extends React.PureComponent {
 
 		const page = params.page ? parseInt( params.page, 10 ) : 1;
 
+		const currentOrder = params.order || 'time';
+		const currentOrderDesc = params.desc || '1';
+
 		const matchedSort = SORT_OPTIONS.find( opt => {
-			return params.order === opt.value.order && params.desc === opt.value.desc;
+			return currentOrder === opt.value.order && currentOrderDesc === opt.value.desc;
 		});
 		const currentSort = matchedSort ? matchedSort.id : '';
 
