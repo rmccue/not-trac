@@ -37,7 +37,7 @@ export default class Dropdown extends React.PureComponent {
 
 			<div className="Dropdown-content">
 				{ header }
-				<ul className="Dropdown-list">
+				<ul className="Dropdown-list" onClick={ () => this.setState({ expanded: false }) }>
 					{ children }
 				</ul>
 			</div>
