@@ -5,10 +5,14 @@ import TicketListItem from './TicketListItem';
 
 export default class TicketList extends React.PureComponent {
 	render() {
-		const { tickets } = this.props;
+		const { tickets, ...params } = this.props;
 
 		return <ListTable>
-			{ tickets.map( ticket => <TicketListItem key={ ticket.id } ticket={ ticket } /> ) }
+			{ tickets.map( ticket => <TicketListItem
+				{ ...params }
+				key={ ticket.id }
+				ticket={ ticket }
+			/> ) }
 		</ListTable>
 	}
 }

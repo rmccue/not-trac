@@ -1,7 +1,10 @@
+import qs from 'query-string';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import DropSelect from './DropSelect';
 import Loading from './Loading';
+import Tag from './Tag';
 import TicketList from './TicketList';
 import LabelSelect from '../containers/selectors/LabelSelect';
 import MilestoneSelect from '../containers/selectors/MilestoneSelect';
@@ -46,6 +49,32 @@ const SORT_OPTIONS = [
 const Label = ({ text }) => <span>{ text } <span className="Query-drop-arrow">▼</span></span>;
 
 export default class Query extends React.PureComponent {
+	constructor( props ) {
+		super( props );
+
+		this.milestoneComponent = ({ className, name }) => {
+			const nextParams = {
+				...this.props.params,
+				milestone: name,
+			};
+			const search = '?' + qs.stringify( nextParams );
+			return <Link className={ className } to={{ search }}>
+				<span className="dashicons dashicons-post-status" />
+				{ name }
+			</Link>;
+		};
+		this.labelComponent = ({ name }) => {
+			const nextParams = {
+				...this.props.params,
+				keywords: '~' + name,
+			};
+			const search = '?' + qs.stringify( nextParams );
+			return <Link to={{ search }}>
+				<Tag name={ name } />
+			</Link>;
+		};
+	}
+
 	render() {
 		const { loading, params, tickets, onNext, onPrevious, onUpdateQuery } = this.props;
 
@@ -107,7 +136,11 @@ export default class Query extends React.PureComponent {
 						<p className="Query-empty">No results for your query.</p>
 					)
 				) : (
-					<TicketList tickets={ tickets } />
+					<TicketList
+						tickets={ tickets }
+						labelComponent={ this.labelComponent }
+						milestoneComponent={ this.milestoneComponent }
+					/>
 				)
 			) }
 			<div className="Query-footer">

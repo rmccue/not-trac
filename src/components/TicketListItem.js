@@ -12,6 +12,8 @@ import './TicketListItem.css';
 export default class TicketListItem extends React.PureComponent {
 	render() {
 		const { ticket } = this.props;
+		const Milestone = this.props.milestoneComponent;
+		const Label = this.props.labelComponent;
 
 		const keywords = ticket.attributes.keywords;
 		const hasPatch = keywords.indexOf( 'has-patch' ) >= 0;
@@ -42,7 +44,7 @@ export default class TicketListItem extends React.PureComponent {
 					</p>
 					{ ticket.attributes.keywords ?
 						<div className="TicketListItem-detail-tags">
-							{ getKeywords( ticket ).map( tag => <Tag key={ tag } name={ tag } />) }
+							{ getKeywords( ticket ).map( tag => <Label key={ tag } name={ tag } />) }
 						</div>
 					: null }
 				</div>
@@ -53,10 +55,10 @@ export default class TicketListItem extends React.PureComponent {
 					{ ' by ' }
 					@{ ticket.attributes.reporter }
 					{ milestone ?
-						<span className="TicketListItem-detail-milestone">
-							<span className="dashicons dashicons-post-status"></span>
-							{ milestone }
-						</span>
+						<Milestone
+							className="TicketListItem-detail-milestone"
+							name={ milestone }
+						/>
 					: null }
 				</small>
 			</div>
@@ -82,3 +84,13 @@ export default class TicketListItem extends React.PureComponent {
 		</ListTableItem>;
 	}
 }
+
+TicketListItem.defaultProps = {
+	milestoneComponent: ({ className, name }) => {
+		return <span className={ className }>
+			<span className="dashicons dashicons-post-status" />
+			{ name }
+		</span>;
+	},
+	labelComponent: Tag,
+};
