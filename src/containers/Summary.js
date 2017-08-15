@@ -92,7 +92,7 @@ class Summary extends React.PureComponent {
 				<h2>Browse by Component</h2>
 				<p className="Summary-components">
 					{ Object.values( components ).map( component => <span key={ component.name }>
-						<Link to={ `/component/${ encodeURIComponent( component.name ) }`}>
+						<Link to={ `/component/${ component.name }`}>
 							<Tag name={ component.name } />
 						</Link>
 						{/*
