@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { set_query_results, set_ticket_data } from '../actions';
-import Loading from '../components/Loading';
 import QueryComponent from '../components/Query';
 import Trac from '../lib/trac';
 import { parseTicketResponse } from '../lib/workflow';
@@ -133,18 +132,14 @@ class Query extends React.PureComponent {
 	}
 
 	render() {
-		const { loading } = this.state;
-		if ( loading ) {
-			return <Loading />;
-		}
-
 		const { query, params, tickets } = this.props;
-		const { results } = query;
+		const { loading } = this.state;
 
-		const selectedTickets = results.map( id => tickets[ id ] );
+		const selectedTickets = loading ? [] : query.results.map( id => tickets[ id ] );
 
 		return <DocumentTitle title='Custom Query'>
 			<QueryComponent
+				loading={ loading }
 				params={ params }
 				query={ query }
 				tickets={ selectedTickets }

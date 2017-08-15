@@ -1,6 +1,7 @@
 import React from 'react';
 
 import DropSelect from './DropSelect';
+import Loading from './Loading';
 import TicketList from './TicketList';
 import LabelSelect from '../containers/selectors/LabelSelect';
 import MilestoneSelect from '../containers/selectors/MilestoneSelect';
@@ -46,7 +47,7 @@ const Label = ({ text }) => <span>{ text } <span className="Query-drop-arrow">â–
 
 export default class Query extends React.PureComponent {
 	render() {
-		const { params, tickets, onNext, onPrevious, onUpdateQuery } = this.props;
+		const { loading, params, tickets, onNext, onPrevious, onUpdateQuery } = this.props;
 
 		const page = params.page ? parseInt( params.page, 10 ) : 1;
 
@@ -88,19 +89,23 @@ export default class Query extends React.PureComponent {
 					</ul>
 				</nav>
 			</div>
-			{ tickets.length === 0 ? (
-				page > 1 ? (
-					<p className="Query-empty">
-						No results, you might be out of pages.
-						<button
-							onClick={ () => onUpdateQuery({ page: 1 }) }
-							type="button"
-						>Try page 1?</button></p>
-				) : (
-					<p className="Query-empty">No results for your query.</p>
-				)
+			{ loading ? (
+				<Loading />
 			) : (
-				<TicketList tickets={ tickets } />
+				tickets.length === 0 ? (
+					page > 1 ? (
+						<p className="Query-empty">
+							No results, you might be out of pages.
+							<button
+								onClick={ () => onUpdateQuery({ page: 1 }) }
+								type="button"
+							>Try page 1?</button></p>
+					) : (
+						<p className="Query-empty">No results for your query.</p>
+					)
+				) : (
+					<TicketList tickets={ tickets } />
+				)
 			) }
 			<div className="Query-footer">
 				<p>
