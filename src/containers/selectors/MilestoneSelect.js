@@ -18,7 +18,7 @@ class MilestoneSelect extends React.PureComponent {
 
 	onLoad() {
 		this.api.call( 'ticket.milestone.getAll' )
-			.then( items => this.setState({ items, loading: false }) );
+			.then( items => this.setState({ items: items.reverse(), loading: false }) );
 	}
 
 	render() {
@@ -30,7 +30,7 @@ class MilestoneSelect extends React.PureComponent {
 				title: 'No milestone',
 				value: undefined,
 			},
-			...items.reverse(),
+			...items,
 		];
 
 		return <DropSelect
