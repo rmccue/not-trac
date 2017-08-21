@@ -45,7 +45,7 @@ const Label = ({ text }) => <span>{ text } <span className="QueryHeader-drop-arr
 
 export default class QueryHeader extends React.PureComponent {
 	render() {
-		const { params, onUpdateQuery } = this.props;
+		const { children, params, onUpdateQuery } = this.props;
 
 		const currentOrder = params.order || 'time';
 		const currentOrderDesc = params.desc || '1';
@@ -56,8 +56,8 @@ export default class QueryHeader extends React.PureComponent {
 		const currentSort = matchedSort ? matchedSort.id : '';
 
 		return <div className="QueryHeader">
-			<div className="QueryHeader-count">
-				<a href="#">View board</a>
+			<div className="QueryHeader-actions">
+				{ children }
 			</div>
 			<nav>
 				<ul className="QueryHeader-filter">

@@ -41,12 +41,22 @@ export default class Query extends React.PureComponent {
 
 		const page = params.page ? parseInt( params.page, 10 ) : 1;
 
+		const boardLink = {
+			pathname: '/board',
+			search: '?' + qs.stringify( params ),
+		};
+
 		return <div className="Query">
 			<h1>Query</h1>
 			<QueryHeader
 				params={ params }
 				onUpdateQuery={ onUpdateQuery }
-			/>
+			>
+				<Link to={ boardLink }>
+					<span className="dashicons dashicons-excerpt-view" />
+					Switch to card view
+				</Link>
+			</QueryHeader>
 
 			{ loading ? (
 				<Loading />

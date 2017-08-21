@@ -87,11 +87,21 @@ export default class Board extends React.PureComponent {
 
 		const data = columnise( tickets );
 
+		const queryLink = {
+			pathname: '/query',
+			search: '?' + qs.stringify( params ),
+		};
+
 		return <div className="Board">
 			<QueryHeader
 				params={ params }
 				onUpdateQuery={ onUpdateQuery }
-			/>
+			>
+				<Link to={ queryLink }>
+					<span className="dashicons dashicons-list-view" />
+					Switch to list view
+				</Link>
+			</QueryHeader>
 			{ loading ? (
 				<Loading />
 			) : (

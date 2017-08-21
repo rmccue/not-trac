@@ -15,8 +15,12 @@
 	color: inherit;
 }
 
-.QueryHeader > .QueryHeader-count {
+.QueryHeader-actions {
 	flex-grow: 1;
+}
+
+.QueryHeader-actions .dashicons {
+	margin-right: 0.4em;
 }
 
 .QueryHeader > nav > ul {
