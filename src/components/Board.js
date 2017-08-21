@@ -47,7 +47,11 @@ const getColumn = ticket => {
 		return 'assigned';
 	}
 
-	return 'needs-patch';
+	if ( ticket.attributes.status === 'accepted' || keywords.indexOf( 'needs-patch' ) >= 0 ) {
+		return 'needs-patch';
+	}
+
+	return 'backlog';
 };
 
 const columnise = tickets => {
