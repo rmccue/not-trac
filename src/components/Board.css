@@ -30,7 +30,6 @@
 	flex-grow: 0;
 	position: relative;
 	overflow-y: scroll;
-	background: #fff;
 	max-height: 100%;
 }
 
@@ -51,8 +50,11 @@
 }
 
 .Board .ListTableItem {
+	background: #fff;
 	border: none;
+	border-top: 2px solid #cbcdce;
 	border-bottom: 2px solid #cbcdce;
+	border-radius: 3px;
 }
 
 .Board .TicketListItem-detail-tags {
