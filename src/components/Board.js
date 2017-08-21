@@ -12,6 +12,9 @@ import TicketList from './TicketList';
 import './Board.css';
 
 const COLUMNS = {
+	'icebox': {
+		title: 'Icebox',
+	},
 	'backlog': {
 		title: 'Backlog',
 	},
@@ -49,6 +52,10 @@ const getColumn = ticket => {
 
 	if ( ticket.attributes.status === 'accepted' || keywords.indexOf( 'needs-patch' ) >= 0 ) {
 		return 'needs-patch';
+	}
+
+	if ( ticket.attributes.milestone === 'Future Release' ) {
+		return 'icebox';
 	}
 
 	return 'backlog';
