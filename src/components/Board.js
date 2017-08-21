@@ -2,6 +2,7 @@ import qs from 'query-string';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Button from './Button';
 import Header from './Header';
 import Loading from './Loading';
 import QueryHeader from './QueryHeader';
@@ -68,6 +69,10 @@ export default class Board extends React.PureComponent {
 	constructor( props ) {
 		super( props );
 
+		this.state = {
+			showingLabels: false,
+		};
+
 		this.milestoneComponent = ({ className, name }) => {
 			const nextParams = {
 				...this.props.params,
@@ -79,11 +84,21 @@ export default class Board extends React.PureComponent {
 				{ name }
 			</Link>;
 		};
-		this.labelComponent = () => null;
+		this.labelComponent = ({ name }) => {
+			const nextParams = {
+				...this.props.params,
+				keywords: '~' + name,
+			};
+			const search = '?' + qs.stringify( nextParams );
+			return <Link to={{ search, pathname: '/query' }}>
+				<Tag name={ name } />
+			</Link>;
+		};
 	}
 
 	render() {
 		const { loading, params, tickets, onUpdateQuery } = this.props;
+		const { showingLabels } = this.state;
 
 		const data = columnise( tickets );
 
@@ -92,7 +107,7 @@ export default class Board extends React.PureComponent {
 			search: '?' + qs.stringify( params ),
 		};
 
-		return <div className="Board">
+		return <div className={ showingLabels ? 'Board with-labels' : 'Board' }>
 			<QueryHeader
 				params={ params }
 				onUpdateQuery={ onUpdateQuery }
@@ -101,6 +116,9 @@ export default class Board extends React.PureComponent {
 					<span className="dashicons dashicons-list-view" />
 					Switch to list view
 				</Link>
+				<Button onClick={ () => this.setState({ showingLabels: ! showingLabels }) }>
+					{ showingLabels ? 'Hide labels' : 'Show labels' }
+				</Button>
 			</QueryHeader>
 			{ loading ? (
 				<Loading />

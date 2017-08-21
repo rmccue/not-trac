@@ -17,9 +17,17 @@
 .QueryHeader-actions {
 	flex-grow: 1;
 }
+.QueryHeader-actions > * {
+	margin-right: 2em;
+}
 
 .QueryHeader-actions .dashicons {
 	margin-right: 0.4em;
+}
+
+.QueryHeader-actions .Button {
+	margin-top: -4px;
+	margin-bottom: -4px;
 }
 
 .QueryHeader > nav > ul {
