@@ -11,7 +11,7 @@
 	height: 80vh;
 
 	font-size: 0.9em;
-	padding: 0 1vw;
+	padding: 1em 1vw;
 
 	background: #cbcdce;
 }
@@ -25,12 +25,15 @@
 
 .Board-column {
 	width: 28vw;
-	margin-right: 1vw;
+	margin-right: 0.75vw;
 	flex-shrink: 0;
 	flex-grow: 0;
 	position: relative;
 	overflow-y: scroll;
 	max-height: 100%;
+	padding: 0;
+	background: rgba( 255, 255, 255, 0.4 );
+	border-radius: 3px;
 }
 
 /* Convince Firefox to show right margin */
@@ -52,9 +55,9 @@
 .Board .ListTableItem {
 	background: #fff;
 	border: none;
-	border-top: 2px solid #cbcdce;
-	border-bottom: 2px solid #cbcdce;
+	margin: 0.4em 0.5em;
 	border-radius: 3px;
+	box-shadow: 1px 2px 2px rgba( 0, 0, 0, 0.1 );
 }
 
 .Board .TicketListItem-detail-tags {
