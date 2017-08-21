@@ -82,7 +82,7 @@ export default class TicketChanges extends React.PureComponent {
 				const icon = <span className="dashicons dashicons-upload"></span>;
 				let description = attachments && patch in attachments && attachments[ patch ].description;
 				let pullLink = null;
-				if ( description && description.indexOf( 'https://github.com/WordPress/wordpress-develop/pull/' ) > -1 ) {
+				if ( description && description.indexOf( 'https://github.com/WordPress/wordpress-develop/pull/' ) >= 0 ) {
 					pullLink = description.match( /(https:\/\/github.com\/WordPress\/wordpress-develop\/pull\/\d+)/i )[ 1 ];
 					description = description.replace(
 						/\(From (https:\/\/github.com\/WordPress\/wordpress-develop\/pull\/\d+)\)/,
