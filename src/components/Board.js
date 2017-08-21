@@ -74,7 +74,7 @@ export default class Board extends React.PureComponent {
 				milestone: name,
 			};
 			const search = '?' + qs.stringify( nextParams );
-			return <Link className={ className } to={{ search }}>
+			return <Link className={ className } to={{ search, pathname: '/board' }}>
 				<span className="dashicons dashicons-post-status" />
 				{ name }
 			</Link>;

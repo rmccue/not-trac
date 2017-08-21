@@ -19,7 +19,7 @@ export default class Query extends React.PureComponent {
 				milestone: name,
 			};
 			const search = '?' + qs.stringify( nextParams );
-			return <Link className={ className } to={{ search }}>
+			return <Link className={ className } to={{ search, pathname: '/query' }}>
 				<span className="dashicons dashicons-post-status" />
 				{ name }
 			</Link>;
@@ -30,7 +30,7 @@ export default class Query extends React.PureComponent {
 				keywords: '~' + name,
 			};
 			const search = '?' + qs.stringify( nextParams );
-			return <Link to={{ search }}>
+			return <Link to={{ search, pathname: '/query' }}>
 				<Tag name={ name } />
 			</Link>;
 		};
