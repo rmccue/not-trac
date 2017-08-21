@@ -1,5 +1,7 @@
 .TicketListItem > .col-type {
-	width: 2rem;
+	width: 30px;
+	flex-grow: 0;
+	flex-shrink: 0;
 	color: #f9a87e;
 }
 
