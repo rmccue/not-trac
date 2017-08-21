@@ -81,7 +81,7 @@ export default class Board extends React.PureComponent {
 		super( props );
 
 		this.state = {
-			showingLabels: false,
+			showingLabels: true,
 		};
 
 		this.milestoneComponent = ({ className, name }) => {
