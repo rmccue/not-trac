@@ -38,6 +38,10 @@ const COLUMNS = {
 const getColumn = ticket => {
 	const keywords = ticket.attributes.keywords.split( ' ' ).map( k => k.trim() );
 
+	if ( ticket.attributes.milestone === 'Future Release' ) {
+		return 'icebox';
+	}
+
 	if ( keywords.indexOf( 'has-patch' ) >= 0 ) {
 		if ( keywords.indexOf( 'commit' ) >= 0 ) {
 			return 'commit';
@@ -52,10 +56,6 @@ const getColumn = ticket => {
 
 	if ( ticket.attributes.status === 'accepted' || keywords.indexOf( 'needs-patch' ) >= 0 ) {
 		return 'needs-patch';
-	}
-
-	if ( ticket.attributes.milestone === 'Future Release' ) {
-		return 'icebox';
 	}
 
 	return 'backlog';
