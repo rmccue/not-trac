@@ -6,11 +6,14 @@
 
 .Board-columns {
 	display: flex;
+	align-items: flex-start;
 	overflow-x: scroll;
-	max-height: 80vh;
+	height: 80vh;
 
 	font-size: 0.9em;
 	padding: 0 1vw;
+
+	background: #cbcdce;
 }
 
 .Board-columns:after {
@@ -27,6 +30,8 @@
 	flex-grow: 0;
 	position: relative;
 	overflow-y: scroll;
+	background: #fff;
+	max-height: 100%;
 }
 
 /* Convince Firefox to show right margin */
@@ -43,6 +48,11 @@
 	font-size: 0.75em;
 	position: sticky;
 	top: 0;
+}
+
+.Board .ListTableItem {
+	border: none;
+	border-bottom: 2px solid #cbcdce;
 }
 
 .Board .TicketListItem-detail-tags {
