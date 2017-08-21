@@ -11,6 +11,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 
 import Attachment from './containers/Attachment';
+import Board from './containers/Board';
 import Query from './containers/Query';
 import Summary from './containers/Summary';
 import Ticket from './containers/Ticket';
@@ -84,6 +85,15 @@ class App extends React.Component {
 							path="/query"
 							component={ ({ location }) => (
 								<Query
+									params={ qs.parse( location.search ) }
+								/>
+							)}
+						/>
+						<Route
+							exact
+							path="/board"
+							component={ ({ location }) => (
+								<Board
 									params={ qs.parse( location.search ) }
 								/>
 							)}

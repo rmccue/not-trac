@@ -1,0 +1,61 @@
+.Board {
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+
+.Board-columns {
+	display: flex;
+	overflow-x: scroll;
+	max-height: 80vh;
+
+	font-size: 0.9em;
+	padding: 0 1vw;
+}
+
+.Board-columns:after {
+	content: "";
+	display: block;
+	height: 100%;
+	width: 50px;
+}
+
+.Board-column {
+	width: 28vw;
+	margin-right: 1vw;
+	flex-shrink: 0;
+	flex-grow: 0;
+	position: relative;
+	overflow-y: scroll;
+}
+
+/* Convince Firefox to show right margin */
+.Board-columns::after {
+	display: block;
+	content: " ";
+	flex-shrink: 0;
+	flex-grow: 0;
+	height: 1px;
+	width: 1px;
+}
+
+.Board-column > .Header {
+	font-size: 0.75em;
+	position: sticky;
+	top: 0;
+}
+
+.Board .TicketListItem-detail-tags {
+	display: none;
+}
+.Board .TicketListItem-detail-opened {
+	display: none;
+}
+.Board .TicketListItem-detail-milestone {
+	display: block;
+	margin-left: -20px;
+	margin-top: 0.5em;
+}
+.Board .TicketListItem-detail-patch {
+	display: none;
+}
