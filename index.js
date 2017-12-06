@@ -40,9 +40,10 @@ app.options(
 	}
 );
 
-app.use( express.static( __dirname + '/build', {
-	fallthrough: false,
-} ) );
+app.use( express.static( __dirname + '/build' ) );
+app.get('/*', function(req, res){
+	res.sendFile(__dirname + '/build/index.html');
+});
 
 app.use( ( err, req, res, next ) => {
 	if ( err instanceof proxy.HttpError ) {
