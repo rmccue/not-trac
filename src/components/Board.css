@@ -1,0 +1,89 @@
+.Board {
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+
+.Board-columns {
+	display: flex;
+	align-items: flex-start;
+	overflow-x: scroll;
+	height: 85vh;
+
+	font-size: 0.9em;
+	padding: 1em 1vw;
+
+	background: #cbcdce;
+}
+
+.Board-columns:after {
+	content: "";
+	display: block;
+	height: 100%;
+	width: 50px;
+}
+
+.Board-column {
+	width: 28vw;
+	margin-right: 0.75vw;
+	flex-shrink: 0;
+	flex-grow: 0;
+	position: relative;
+	overflow-y: scroll;
+	max-height: 100%;
+	padding: 0;
+	background: rgba( 255, 255, 255, 0.4 );
+	border-radius: 3px;
+}
+
+/* Convince Firefox to show right margin */
+.Board-columns::after {
+	display: block;
+	content: " ";
+	flex-shrink: 0;
+	flex-grow: 0;
+	height: 1px;
+	width: 1px;
+}
+
+.Board-column > .Header {
+	font-size: 0.75em;
+	position: sticky;
+	top: 0;
+}
+
+.Board .ListTableItem {
+	background: #fff;
+	border: none;
+	margin: 0.4em 0.5em;
+	border-radius: 3px;
+	box-shadow: 1px 2px 2px rgba( 0, 0, 0, 0.1 );
+}
+.Board .ListTableItem:hover {
+	box-shadow: 1px 2px 2px rgba( 0, 0, 0, 0.2 )
+}
+
+.Board .TicketListItem-detail-title-block {
+	flex-direction: column;
+}
+.Board .TicketListItem-detail-title-block .col-main-title a {
+	display: block;
+}
+.Board .TicketListItem-detail-tags {
+	display: none;
+	margin-left: 0;
+}
+.Board.with-labels .TicketListItem-detail-tags {
+	display: block;
+}
+.Board .TicketListItem-detail-opened {
+	display: none;
+}
+.Board .TicketListItem-detail-milestone {
+	display: block;
+	margin-left: -20px;
+	margin-top: 0.5em;
+}
+.Board .TicketListItem-detail-patch {
+	display: none;
+}

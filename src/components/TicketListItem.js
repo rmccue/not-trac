@@ -49,11 +49,13 @@ export default class TicketListItem extends React.PureComponent {
 					: null }
 				</div>
 				<small>
-					#{ ticket.id }
-					{ ' opened ' }
-					<Time date={ ticket.attributes.time } />
-					{ ' by ' }
-					@{ ticket.attributes.reporter }
+					<span className="TicketListItem-detail-opened">
+						#{ ticket.id }
+						{ ' opened ' }
+						<Time date={ ticket.attributes.time } />
+						{ ' by ' }
+						@{ ticket.attributes.reporter }
+					</span>
 					{ milestone ?
 						<Milestone
 							className="TicketListItem-detail-milestone"

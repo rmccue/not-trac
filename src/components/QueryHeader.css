@@ -1,0 +1,48 @@
+.QueryHeader {
+	background: #e5f5fa;
+	color: #32373c;
+	border: 1px solid #bfe7f3;
+	display: flex;
+	padding: 0.7em;
+
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
+
+.QueryHeader a {
+	color: inherit;
+}
+
+.QueryHeader-actions {
+	flex-grow: 1;
+}
+.QueryHeader-actions > * {
+	margin-right: 2em;
+}
+
+.QueryHeader-actions .dashicons {
+	margin-right: 0.4em;
+}
+
+.QueryHeader-actions .Button {
+	margin-top: -4px;
+	margin-bottom: -4px;
+}
+
+.QueryHeader > nav > ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+}
+
+.QueryHeader-filter > li {
+	margin-left: 2em;
+}
+
+.QueryHeader-drop-arrow {
+	font-size: 0.6em;
+	vertical-align: middle;
+	opacity: 0.7;
+}
