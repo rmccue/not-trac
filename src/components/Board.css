@@ -66,6 +66,9 @@
 .Board .TicketListItem-detail-title-block {
 	flex-direction: column;
 }
+.Board .TicketListItem-detail-title-block .col-main-title a {
+	display: block;
+}
 .Board .TicketListItem-detail-tags {
 	display: none;
 	margin-left: 0;
