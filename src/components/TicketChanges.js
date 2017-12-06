@@ -53,7 +53,7 @@ export default class TicketChanges extends React.PureComponent {
 				}
 
 				if ( author === 'slackbot' || author === 'ircbot' ) {
-					return <SlackMention text={ newval } />;
+					return <SlackMention key={ key } text={ newval } />;
 				}
 
 				// Replies have an ID like `11.12`, so only take the last part.
