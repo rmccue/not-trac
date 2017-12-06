@@ -52,7 +52,7 @@ export default class TicketListItem extends React.PureComponent {
 					<span className="TicketListItem-detail-opened">
 						#{ ticket.id }
 						{ ' opened ' }
-						<Time timestamp={ ticket.attributes.time } />
+						<Time date={ ticket.attributes.time } />
 						{ ' by ' }
 						@{ ticket.attributes.reporter }
 					</span>
