@@ -62,7 +62,6 @@ module.exports = ( req, res ) => {
 		throw new HttpError( {
 			message: e.message,
 		}, 400 );
-		return;
 	}
 	client.methodCall( data.method, data.parameters, ( err, value ) => {
 		if ( err ) {

@@ -39,5 +39,8 @@
     "eject": "react-scripts eject",
     "deploy": "now"
   },
-  "proxy": "http://localhost:3090"
+  "proxy": "http://localhost:3090",
+  "now": {
+    "alias": "not-trac.rmccue.io"
+  }
 }
