@@ -40,10 +40,10 @@ class AttachmentUpload extends React.PureComponent {
 		};
 
 		// Optimistically render.
-		const tempTimestamp = parseInt( Date.now() / 1000, 10 );
+		const tempDate = new Date();
 		const change = [
 			// timestamp
-			tempTimestamp,
+			tempDate,
 
 			// author
 			user.username,
@@ -64,7 +64,7 @@ class AttachmentUpload extends React.PureComponent {
 			id: filename,
 			description,
 			size: 0,
-			timestamp: tempTimestamp,
+			timestamp: tempDate,
 			author: user.username,
 			isUploading: true,
 		};

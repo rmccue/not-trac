@@ -26,7 +26,7 @@ export default class Ticket extends React.PureComponent {
 				{ attributes ?
 					<p>
 						<TicketState state={ attributes.status } />
-						{ attributes.reporter } opened this issue <Time timestamp={ attributes.time } />
+						{ attributes.reporter } opened this issue <Time date={ attributes.time } />
 						<span> &bull; { commentCount } comments</span>
 						<span> &bull; </span>
 						<a href={ `https://core.trac.wordpress.org/ticket/${ id }` }>
@@ -43,9 +43,9 @@ export default class Ticket extends React.PureComponent {
 							<CommentMeta
 								author={ attributes.reporter }
 								changes={ time_changed !== time_created ? [ {} ] : [] }
+								datetime={ time_created }
 								number={ 0 }
 								ticket={ id }
-								timestamp={ time_created }
 							/>
 							<CommentContent
 								text={ attributes.description }

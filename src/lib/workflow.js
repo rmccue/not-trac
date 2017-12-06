@@ -39,12 +39,12 @@ export const parseTicketResponse = data => {
 };
 
 export const parseAttachmentResult = data => {
-	const [ id, description, size, timestamp, author ] = data;
+	const [ id, description, size, datetime, author ] = data;
 	return {
 		id,
 		description,
 		size,
-		timestamp,
+		datetime,
 		author
 	};
 };

@@ -62,13 +62,13 @@ const CONTRIBUTOR_LABELS = {
 
 export default class CommentMeta extends React.PureComponent {
 	render() {
-		const { author, edits, number, pending, ticket, timestamp } = this.props;
+		const { author, datetime, edits, number, pending, ticket } = this.props;
 
 		return <CommentHeader className="CommentMeta">
 			<p>
 				<UserLink user={ author } />
 				{ ' commented ' }
-				<Time timestamp={ timestamp } />
+				<Time date={ datetime } />
 				{ edits.length > 0 ?
 					<span> &bull; edited</span>
 				: null }
@@ -94,10 +94,10 @@ export default class CommentMeta extends React.PureComponent {
 }
 CommentMeta.propTypes = {
 	author: PropTypes.string.isRequired,
+	datetime: PropTypes.string.isRequired,
 	edits: PropTypes.array,
 	number: PropTypes.number.isRequired,
 	ticket: PropTypes.number.isRequired,
-	timestamp: PropTypes.number.isRequired,
 };
 CommentMeta.defaultProps = {
 	edits: [],

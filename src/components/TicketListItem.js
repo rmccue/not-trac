@@ -51,7 +51,7 @@ export default class TicketListItem extends React.PureComponent {
 				<small>
 					#{ ticket.id }
 					{ ' opened ' }
-					<Time timestamp={ ticket.attributes.time } />
+					<Time date={ ticket.attributes.time } />
 					{ ' by ' }
 					@{ ticket.attributes.reporter }
 					{ milestone ?
