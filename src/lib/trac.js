@@ -1,5 +1,4 @@
-// const API_URL = 'https://core.trac.wordpress.org/login/xmlrpc';
-const PROXY_URL = 'http://localhost:3001/';
+const PROXY_URL = '/proxy';
 
 export default class TracAPI {
 	constructor( user ) {
