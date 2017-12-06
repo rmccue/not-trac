@@ -55,4 +55,4 @@ app.use( ( err, req, res, next ) => {
 	next( err );
 } );
 
-app.listen( 3090, () => console.log( 'Example app listening on port 3090!' ) );
+app.listen( 3090, () => console.log( 'Trac proxy listening on port 3090' ) );
