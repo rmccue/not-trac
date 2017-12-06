@@ -156,7 +156,7 @@ class Ticket extends React.PureComponent {
 				dispatch( set_ticket_data( data.id, parseTicketResponse( data ) ) );
 
 				// ...and reload the changes.
-				this.loadChanges();
+				this.loadChanges( this.props.id );
 			});
 	}
 
