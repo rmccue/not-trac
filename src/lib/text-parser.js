@@ -162,5 +162,5 @@ export default text => {
 
 	configure( parser );
 
-	return parser.toTree( text );
+	return parser.toTree( text.replace( /\r\n/g, '\n' ) );
 };
