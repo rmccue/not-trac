@@ -132,6 +132,14 @@ const configure = parser => {
 				ticket: matches[3] || null,
 			};
 		}
+		matches = url.match( /Image\((https?:\/\/[^)]+)\)/ );
+		if ( matches ) {
+			return {
+				type: 'link',
+				url: matches[1],
+				text: parser.toTree( matches[0] ),
+			};
+		}
 
 		return {
 			type: 'link',
@@ -139,6 +147,11 @@ const configure = parser => {
 			text: parser.toTree( text || url ),
 		};
 	});
+
+	// Image macro.
+	parser.addRule( /Image\((https?:\/\/[^)]+)\)/, (_, url) => ({ type: 'image', url }) );
+
+	// Bare URLs.
 	parser.addRule( /\b(https?:\/\/\S+)\b/, (_, url) => {
 		return {
 			type: 'link',
