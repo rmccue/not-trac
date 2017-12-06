@@ -1,0 +1,8 @@
+/.git
+/docs
+/node_modules
+/proxy
+/public
+/src
+
+!build/
