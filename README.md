@@ -2,6 +2,8 @@
 
 This project isn't Trac.
 
+<h2><a href="https://not-trac.rmccue.io/">&rarr; View Not Trac</a></h2>
+
 ## Disclaimer
 
 This connects to WordPress.org's Trac instance via XML-RPC, and hence requires your username and password. You shouldn't trust my code, and you should carefully audit all code that handles your username and password before entering it into this application.
