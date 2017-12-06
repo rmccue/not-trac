@@ -84,6 +84,12 @@ const formatLeaf = ( leaf, context ) => {
 			return <Link to={ `/attachment/ticket/${ ticket }/${ id }`}>{ text }</Link>;
 		}
 
+		// Image macro.
+		case 'image': {
+			const { url } = leaf;
+			return <img alt="" src={ url } />;
+		}
+
 		// Paragraph separator.
 		case 'para':
 			return PARA_MARKER;
