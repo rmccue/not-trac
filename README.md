@@ -63,13 +63,9 @@ cd not-trac
 
 # Install all dependencies:
 npm install
-cd proxy
-composer install
-cd ..
 
 # Run the following two simultaneously (maybe in separate terminal sessions):
 npm run start
-cd proxy && php -S 0.0.0.0:3001
 ```
 
 ## License

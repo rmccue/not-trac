@@ -1,6 +1,0 @@
-{
-    "require": {
-        "comodojo/xmlrpc": "^1.1",
-        "rmccue/requests": "^1.7"
-    }
-}
