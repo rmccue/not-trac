@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "now": "^8.5.4",
     "react-scripts": "1.0.10"
   },
   "dependencies": {
     "base64-js": "^1.2.1",
+    "body-parser": "^1.18.2",
     "bytes": "^2.5.0",
+    "express": "^4.16.2",
+    "express-basic-auth": "^1.1.3",
     "moment": "^2.18.1",
+    "npm-run-all": "^4.1.2",
     "prismjs": "^1.6.0",
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
@@ -21,12 +26,18 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "simple-text-parser": "^1.0.0",
-    "string-hash": "^1.1.3"
+    "string-hash": "^1.1.3",
+    "xmlrpc": "^1.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "run-p start-proxy start-js",
+    "start-js": "react-scripts start",
+    "start-proxy": "node index.js",
+    "now-start": "PORT=80 node index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "react-scripts eject",
+    "deploy": "now"
+  },
+  "proxy": "http://localhost:3090"
 }

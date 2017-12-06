@@ -130,7 +130,7 @@ class Ticket extends React.PureComponent {
 		// Optimistically render.
 		const change = [
 			// timestamp
-			parseInt( Date.now() / 1000, 10 ),
+			new Date(),
 
 			// author
 			user.username,

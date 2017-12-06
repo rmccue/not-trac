@@ -19,7 +19,7 @@ const parseChanges = changes => {
 	let pending = [];
 
 	return changes.reduce( ( next, current ) => {
-		const [ timestamp, author, field, oldval, newval, permanent ] = current;
+		const [ datetime, author, field, oldval, newval, permanent ] = current;
 		if ( field.indexOf( '_comment' ) === 0 ) {
 			pending.push({
 				author,
@@ -29,7 +29,7 @@ const parseChanges = changes => {
 			});
 			return next;
 		}
-		const change = { timestamp, author, field, oldval, newval, permanent };
+		const change = { datetime, author, field, oldval, newval, permanent };
 		if ( field === 'comment' && pending.length > 0 ) {
 			change.edits = pending;
 			pending = [];
@@ -43,9 +43,9 @@ const parseChanges = changes => {
 export default class TicketChanges extends React.PureComponent {
 	getChange( change ) {
 		const { attachments, ticket } = this.props;
-		const { timestamp, author, field, oldval, newval, permanent } = change;
+		const { datetime, author, field, oldval, newval, permanent } = change;
 
-		const key = timestamp + field;
+		const key = datetime + field;
 		switch ( field ) {
 			case 'comment':
 				if ( ! permanent || newval.length <= 0 ) {
@@ -64,11 +64,11 @@ export default class TicketChanges extends React.PureComponent {
 					<Comment author={ author }>
 						<CommentMeta
 							author={ author }
+							datetime={ datetime }
 							edits={ change.edits || [] }
 							number={ number }
 							pending={ pending }
 							ticket={ ticket }
-							timestamp={ timestamp }
 						/>
 						<CommentContent
 							text={ newval }
@@ -93,7 +93,7 @@ export default class TicketChanges extends React.PureComponent {
 					<p>
 						<UserLink user={ author } />
 						{ ' uploaded a patch ' }
-						<Time timestamp={ timestamp } />
+						<Time date={ datetime } />
 					</p>
 					<p className="TicketChanges-attachment">
 						<Link to={ `/attachment/ticket/${ ticket }/${ patch }` }>
@@ -158,7 +158,7 @@ export default class TicketChanges extends React.PureComponent {
 						<span>{ addText } and { removeText }</span>
 					: ( addText || removeText ) }
 					{ ' ' + field + ' ' }
-					<Time timestamp={ timestamp } />
+					<Time date={ datetime } />
 				</TimelineEvent>
 			}
 
@@ -189,7 +189,7 @@ export default class TicketChanges extends React.PureComponent {
 				}
 
 				return <TimelineEvent key={ key } compact icon={ icon }>
-					{ text } <Time timestamp={ timestamp } />
+					{ text } <Time date={ datetime } />
 				</TimelineEvent>;
 			}
 
@@ -212,7 +212,7 @@ export default class TicketChanges extends React.PureComponent {
 					{ ' ' }
 					<strong>{ newval }</strong>
 					{ ' ' }
-					<Time timestamp={ timestamp } />
+					<Time date={ datetime } />
 				</TimelineEvent>;
 			}
 
@@ -236,7 +236,7 @@ export default class TicketChanges extends React.PureComponent {
 					{ ' to ' }
 					<TicketState state={ newval } />
 					{ ' ' }
-					<Time timestamp={ timestamp } />
+					<Time date={ datetime } />
 				</TimelineEvent>;
 			}
 
@@ -266,7 +266,7 @@ export default class TicketChanges extends React.PureComponent {
 				}
 
 				return <TimelineEvent key={ key } compact icon={ icon }>
-					<UserLink user={ author } /> { action } <Time timestamp={ timestamp } />
+					<UserLink user={ author } /> { action } <Time date={ datetime } />
 				</TimelineEvent>;
 			}
 		}
