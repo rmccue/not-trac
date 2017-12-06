@@ -33,6 +33,7 @@
     "start": "run-p start-proxy start-js",
     "start-js": "react-scripts start",
     "start-proxy": "node index.js",
+    "now-start": "PORT=80 node index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

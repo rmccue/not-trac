@@ -4,6 +4,8 @@ const basicAuth = require( 'express-basic-auth' );
 const bodyParser = require('body-parser');
 const app = express();
 
+const PORT = parseInt( process.env.PORT || '3090', 10 );
+
 const corsMiddleware = ( req, res, next ) => {
 	const origin = req.get( 'Origin' );
 	if ( origin ) {
@@ -55,4 +57,4 @@ app.use( ( err, req, res, next ) => {
 	next( err );
 } );
 
-app.listen( 3090, () => console.log( 'Trac proxy listening on port 3090' ) );
+app.listen( PORT, () => console.log( `Trac proxy listening on port ${ PORT }` ) );
