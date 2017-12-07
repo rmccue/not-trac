@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ModalContainer } from 'react-router-modal';
 
-import { set_user_credentials } from './actions';
+import { reset_user_credentials, set_user_credentials } from './actions';
 import Avatar from './components/Avatar';
 import DropList from './components/DropList';
 import Footer from './components/Footer';
@@ -43,6 +43,12 @@ class App extends React.Component {
 		if ( remember ) {
 			localStorage.setItem( 'trac-auth', JSON.stringify( user ) );
 		}
+	}
+
+	onLogOut() {
+		localStorage.removeItem( 'trac-auth' );
+
+		this.props.dispatch( reset_user_credentials() );
 	}
 
 	render() {
@@ -91,7 +97,7 @@ class App extends React.Component {
 									</li>
 									<li>
 										<button
-											onClick={ () => console.log( 'logout' ) }
+											onClick={ () => this.onLogOut() }
 											type="button"
 										>Log out</button>
 									</li>
