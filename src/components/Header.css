@@ -17,20 +17,20 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
-.Header nav ul {
+.Header nav > ul {
 	display: flex;
 	padding: 0;
 	margin: 0;
 	align-items: center;
 }
 
-.Header nav li {
+.Header nav > ul > li {
 	list-style: none;
 	padding: 0;
 	margin: 0 25px 0 0;
 }
 
-.Header nav li:last-of-type {
+.Header nav > ul > li:last-of-type {
 	margin-right: 0;
 }
 

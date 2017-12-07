@@ -2,6 +2,7 @@ export const PUSH_ATTACHMENT = 'PUSH_ATTACHMENT';
 export const PUSH_TICKET_CHANGE = 'PUSH_TICKET_CHANGE';
 export const RECEIVE_PRS = 'RECEIVE_PRS';
 export const REQUEST_PRS = 'REQUEST_PRS';
+export const RESET_USER_CREDENTIALS = 'RESET_USER_CREDENTIALS';
 export const SET_COMPONENTS = 'SET_COMPONENTS';
 export const SET_QUERY_PARAMS = 'SET_QUERY_PARAMS';
 export const SET_QUERY_RESULTS = 'SET_QUERY_RESULTS';
@@ -16,6 +17,10 @@ export function push_attachment( id, attachment ) {
 
 export function push_ticket_change( id, change ) {
 	return { type: PUSH_TICKET_CHANGE, id, change };
+}
+
+export function reset_user_credentials() {
+	return { type: RESET_USER_CREDENTIALS };
 }
 
 export function set_components( components ) {

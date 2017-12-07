@@ -9,13 +9,16 @@ export default class Login extends React.PureComponent {
 		this.state = {
 			username: '',
 			password: '',
+			remember: false,
 		};
 	}
 
 	onSubmit( e ) {
+		const { password, remember, username } = this.state;
+
 		e.preventDefault();
 
-		this.props.onSubmit( this.state );
+		this.props.onSubmit( { username, password }, remember );
 	}
 
 	render() {
@@ -43,6 +46,14 @@ export default class Login extends React.PureComponent {
 					<input
 						type="password"
 						onChange={ e => this.setState({ password: e.target.value }) }
+					/>
+				</div>
+				<div>
+					<label>Remember Me</label>
+					<input
+						type="checkbox"
+						value={ this.state.remember }
+						onChange={ e => this.setState( { remember: e.target.checked } ) }
 					/>
 				</div>
 
