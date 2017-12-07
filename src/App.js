@@ -36,6 +36,14 @@ class App extends React.Component {
 		}
 	}
 
+	onLogin( user, remember ) {
+		this.props.dispatch( set_user_credentials( user ) );
+
+		if ( remember ) {
+			localStorage.setItem( 'trac-auth', JSON.stringify( user ) );
+		}
+	}
+
 	render() {
 		const { dispatch, user } = this.props;
 
@@ -47,7 +55,7 @@ class App extends React.Component {
 					/>
 					<div className="wrapper">
 						<Login
-							onSubmit={ user => dispatch( set_user_credentials( user ) ) }
+							onSubmit={ ( user, remember ) => this.onLogin( user, remember ) }
 						/>
 					</div>
 					<Footer />
