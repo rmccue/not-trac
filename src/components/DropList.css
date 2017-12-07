@@ -1,0 +1,43 @@
+.DropList .Dropdown-list > li {
+	border-bottom: 1px solid #bfe7f3;
+	margin: 0 -0.5em;
+}
+
+.DropList .Dropdown-list > li:first-of-type {
+	margin-top: -0.5em;
+}
+.DropList .Dropdown-list > li:last-of-type {
+	margin-bottom: -0.5em;
+	border-bottom: none;
+}
+
+.DropList .Dropdown-list > li:hover {
+	background: #e5f5fa;
+}
+
+.DropList .Dropdown-list > li button,
+.DropList .Dropdown-list > li a {
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	border: none;
+	text-align: left;
+
+	display: block;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+
+	padding: 0.5em;
+	cursor: pointer;
+}
+
+.DropList .Dropdown-list > li.selected {
+	font-weight: bold;
+}
+
+.DropList .Dropdown-list > li.selected .dashicons {
+	margin-left: -1.5em;
+	margin-right: 0.5em;
+}

@@ -6,6 +6,7 @@ import { ModalContainer } from 'react-router-modal';
 
 import { set_user_credentials } from './actions';
 import Avatar from './components/Avatar';
+import DropList from './components/DropList';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Login from './components/Login';
@@ -75,8 +76,26 @@ class App extends React.Component {
 								<Link to="/">Components</Link>
 							</li>
 							<li>
-								<Avatar size={ 24 } user={ user.username } />
-								@{ user.username }
+								<DropList
+									label={
+										<li>
+											<Avatar size={ 24 } user={ user.username } />
+											@{ user.username }
+										</li>
+									}
+								>
+									<li>
+										<a
+											href={ `https://profiles.wordpress.org/${ user.username }` }
+										>View profile</a>
+									</li>
+									<li>
+										<button
+											onClick={ () => console.log( 'logout' ) }
+											type="button"
+										>Log out</button>
+									</li>
+								</DropList>
 							</li>
 						</ul>
 					: null }

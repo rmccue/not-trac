@@ -48,7 +48,7 @@ export default class Dropdown extends React.PureComponent {
 
 		const className = expanded ? 'Dropdown expanded' : 'Dropdown';
 
-		return <div className={ className } ref={ ref => this.root = ref }>
+		return <div className={ `${ className } ${ this.props.className }` } ref={ ref => this.root = ref }>
 			<button
 				className="Dropdown-trigger"
 				onClick={ e => this.onToggle( e ) }
@@ -72,5 +72,6 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+	className: '',
 	onToggle: () => {},
 };
