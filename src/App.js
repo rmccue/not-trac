@@ -29,14 +29,6 @@ class App extends React.Component {
 		};
 	}
 
-	componentWillMount() {
-		// TEMPORARY!
-		const existing = localStorage.getItem( 'trac-auth' );
-		if ( existing ) {
-			this.props.dispatch( set_user_credentials( JSON.parse( existing ) ) );
-		}
-	}
-
 	onLogin( user, remember ) {
 		this.props.dispatch( set_user_credentials( user ) );
 
