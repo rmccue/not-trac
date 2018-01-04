@@ -8,6 +8,12 @@
 	color: #32373c;
 }
 
+.TicketChanges-attachment-image {
+	max-width: 100%;
+	height: auto;
+	margin-top: 0.5rem;
+}
+
 .TicketChanges-attachment a:hover .TicketChanges-attachment-desc {
 	color: inherit;
 }

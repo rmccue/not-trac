@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import isImage from 'is-image';
 
 import Comment from './Comment';
 import CommentContent from './CommentContent';
@@ -80,8 +81,19 @@ export default class TicketChanges extends React.PureComponent {
 			case 'attachment': {
 				const patch = newval;
 				const icon = <span className="dashicons dashicons-upload"></span>;
-				let description = attachments && patch in attachments && attachments[ patch ].description;
+				let description = null;
 				let pullLink = null;
+				let imageSrc = null;
+
+				if ( attachments && patch in attachments ) {
+					const attachment = attachments[ patch ];
+					description = attachment.description;
+
+					if ( isImage( attachment.id ) ) {
+						imageSrc = `https://core.trac.wordpress.org/raw-attachment/ticket/${ticket}/${attachment.id}`;
+					}
+				}
+
 				if ( description && description.indexOf( 'https://github.com/WordPress/wordpress-develop/pull/' ) >= 0 ) {
 					pullLink = description.match( /(https:\/\/github.com\/WordPress\/wordpress-develop\/pull\/\d+)/i )[ 1 ];
 					description = description.replace(
@@ -89,21 +101,25 @@ export default class TicketChanges extends React.PureComponent {
 						''
 					);
 				}
+
 				return <TimelineEvent key={ key } compact icon={ icon }>
 					<p>
 						<UserLink user={ author } />
-						{ ' uploaded a patch ' }
+						{ ' uploaded an attachment ' }
 						<Time date={ datetime } />
 					</p>
 					<p className="TicketChanges-attachment">
-						<Link to={ `/attachment/ticket/${ ticket }/${ patch }` }>
-							{ description ?
-								<span className="TicketChanges-attachment-desc">
-									{ description }
-								</span>
-							: null }
-							<code>{ patch }</code>
-						</Link>
+						{ imageSrc ?
+							<img src={ imageSrc } alt="" className="TicketChanges-attachment-image" />
+						: <Link to={ `/attachment/ticket/${ ticket }/${ patch }` }>
+								{ description ?
+									<span className="TicketChanges-attachment-desc">
+										{ description }
+									</span>
+								: null }
+								<code>{ patch }</code>
+							</Link>
+						}
 						{ ( attachments && patch in attachments && attachments[ patch ].isUploading ) ?
 							<span className="TicketChanges-attachment-uploading">
 								<Spinner />
